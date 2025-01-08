@@ -44,7 +44,7 @@ public class AdapterBazyDanych {
         wynajete.add(film2);
 
         WynajetyFilm film3 = new WynajetyFilm();
-        film3.Tytul = "Harry Potter 3";
+        film3.Tytul = "Harry Potter 2137";
         film3.aktualnykoszt = 30.0;
         film3.dataWypozyczenia = "2021-01-03";
         wynajete.add(film3);
