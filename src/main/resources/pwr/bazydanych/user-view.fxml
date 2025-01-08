@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.UserViewController">
+   <children>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Wynajmij Film" />
+      <TableView fx:id="HistoriaWynajmu" layoutX="272.0" layoutY="14.0" prefHeight="200.0" prefWidth="388.0">
+          <columns>
+              <TableColumn fx:id="tytulColumn" prefWidth="187.0" text="Tytuł" />
+              <TableColumn fx:id="dataWynajmuColumn" prefWidth="112.0" text="Data wynajmu" />
+              <TableColumn fx:id="kosztColumn" prefWidth="88.0" text="Koszt" />
+          </columns>
+      </TableView>
+   </children>
+</AnchorPane>
