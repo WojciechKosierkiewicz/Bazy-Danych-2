@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="Init" />
+    <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="Init">
+      <change afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/WorkerApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/Worker-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/user-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/user-view.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,18 +27,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "WojciechKosierkiewicz"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;WojciechKosierkiewicz&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/WojciechKosierkiewicz/Bazy-Danych-2.git",
-    "accountId": "3e5c0ecd-66e6-4e06-9425-c392015098fc"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/WojciechKosierkiewicz/Bazy-Danych-2.git&quot;,
+    &quot;accountId&quot;: &quot;3e5c0ecd-66e6-4e06-9425-c392015098fc&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -49,32 +55,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Maven.BazyDanych [compile].executor": "Run",
-    "Maven.BazyDanych [deploy].executor": "Run",
-    "Maven.BazyDanych [javafx:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.WorkerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BazyDanych [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BazyDanych [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BazyDanych [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Application.HelloApplication">
+}</component>
+  <component name="RunManager" selected="Application.WorkerApplication">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="pwr.bazydanych.HelloApplication" />
       <module name="BazyDanych" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="pwr.bazydanych.bdanych.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkerApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="pwr.bazydanych.WorkerApplication" />
+      <module name="BazyDanych" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pwr.bazydanych.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -113,11 +133,13 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.WorkerApplication" />
       <item itemvalue="Application.HelloApplication" />
       <item itemvalue="Maven.BazyDanych [javafx:run]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.WorkerApplication" />
         <item itemvalue="Application.HelloApplication" />
       </list>
     </recent_temporary>
@@ -139,7 +161,9 @@
       <option name="presentableId" value="Default" />
       <updated>1736281478644</updated>
       <workItem from="1736281479976" duration="5179000" />
-      <workItem from="1736333109217" duration="664000" />
+      <workItem from="1736333109217" duration="808000" />
+      <workItem from="1736374112744" duration="25000" />
+      <workItem from="1736374145587" duration="662000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -165,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736333387177</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Init">
+      <option name="closed" value="true" />
+      <created>1736333920884</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1736333920884</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

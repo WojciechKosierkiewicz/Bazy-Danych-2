@@ -14,12 +14,12 @@ public class AdapterBazyDanych {
     public User getUser(String id_user) {
         //TODO
         System.out.println("|" + id_user + "|");
-        if (id_user.equals("2137")) {
+        if (id_user.equals("123")) {
             User user = new User();
-            user.imie = "Jan";
-            user.nazwisko = "Paweł";
-            user.id = "2137";
-            user.nrDowodu = "Potwor";
+            user.imie = "Kocham";
+            user.nazwisko = "Pwr";
+            user.id = "123";
+            user.nrDowodu = "<3";
             return user;
         }
         else {
