@@ -57,4 +57,42 @@ public class AdapterBazyDanych {
 
         return wynajete;
     }
+
+    public boolean returnMovie(String id_user, String title) {
+        // TODO
+        return true;
+    }
+
+    public boolean rentMovie(String id_user, String title) {
+        // TODO
+        return true;
+    }
+
+    public boolean validateUser(String id_user) {
+        // TODO
+        return true;
+    }
+
+    public boolean addMovie(String title, String genre, String year, String director_id, String price) {
+        // TODO
+        // wez dodaj błędy do wyłapania typu film już istnieje w bazie danych albo że jeszcze nie istnieje taki reżyser
+        return true;
+    }
+
+    public boolean addDirector(String name, String surname) {
+        // TODO
+        return true;
+    }
+
+    public Vector<Film> getMoviesMatching (String expression){
+        //TODO
+        // Zwracaj liste filmmow pasujacych do wyrazenia np Har znajdzie Harrego  POttera
+        return null;
+    }
+
+    public Vector<Film> getMoviesByDirector (String director){
+        //TODO
+        // Zwracaj liste filmow danego rezysera po czesci nazwiskak i imienia np Stev znajdzie Stevena Spielberga ale tez Spiel znajdzide Stevena Spielberga
+        return null;
+    }
 }

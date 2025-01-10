@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="Naprawa nowego widoku oraz dodanie wyłączanych guzików w widoku pracownika">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerUserManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerUserManagementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/worker-user-management.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/worker-user-management.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="Dodałem wylistowanie wynajętych filmów po zalogowaniu użytkownika i oczyszczenie po zalogowaniu innego użytkownika" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,7 +172,7 @@
       <workItem from="1736520104055" duration="500000" />
       <workItem from="1736520975320" duration="183000" />
       <workItem from="1736521166977" duration="49000" />
-      <workItem from="1736521221653" duration="6178000" />
+      <workItem from="1736521221653" duration="6503000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -234,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736526757217</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Dodałem wylistowanie wynajętych filmów po zalogowaniu użytkownika i oczyszczenie po zalogowaniu innego użytkownika">
+      <option name="closed" value="true" />
+      <created>1736527893929</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1736527893929</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,7 +247,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init" />
     <MESSAGE value="Naprawa nowego widoku oraz dodanie wyłączanych guzików w widoku pracownika" />
-    <option name="LAST_COMMIT_MESSAGE" value="Naprawa nowego widoku oraz dodanie wyłączanych guzików w widoku pracownika" />
+    <MESSAGE value="Dodałem wylistowanie wynajętych filmów po zalogowaniu użytkownika i oczyszczenie po zalogowaniu innego użytkownika" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodałem wylistowanie wynajętych filmów po zalogowaniu użytkownika i oczyszczenie po zalogowaniu innego użytkownika" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
