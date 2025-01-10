@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WorkerUserManagementController">
+   <children>
+      <TextField fx:id="useridtextfield" layoutX="14.0" layoutY="14.0" promptText="Id użytkownika" />
+      <Button layoutX="175.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onZalogujCliked" text="Zaloguj" />
+      <Button fx:id="returnmovies" disable="true" layoutX="14.0" layoutY="53.0" mnemonicParsing="false" text="Disabled until logged in" />
+   </children>
+</AnchorPane>

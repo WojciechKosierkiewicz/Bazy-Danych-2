@@ -3,12 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WorkerViewController">
+<AnchorPane prefHeight="83.0" prefWidth="173.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WorkerViewController">
    <children>
-      <TextField layoutX="14.0" layoutY="14.0" promptText="Id użytkownika" />
-      <Button layoutX="174.0" layoutY="14.0" mnemonicParsing="false" text="Wyszukaj" />
-      <CheckBox layoutX="276.0" layoutY="18.0" mnemonicParsing="false" text="Konto Zweryfikowane" />
-      <Button layoutX="14.0" layoutY="49.0" mnemonicParsing="false" text="Doda film do wynajętych" />
-      <Button layoutX="14.0" layoutY="84.0" mnemonicParsing="false" text="Zwrot filmów" />
+      <Button fx:id="zarzadzajfilmami" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#wybranozarzadzajfilmami" text="Zarządzaj filmami" />
+      <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onMouseClicked="#wybranozarzadzajuzytkownikami" text="Zarządzaj użytkownikami" />
    </children>
 </AnchorPane>

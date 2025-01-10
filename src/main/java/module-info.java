@@ -1,6 +1,7 @@
 module pwr.bazydanych {
     requires javafx.controls;
     requires javafx.fxml;
+    requires jdk.compiler;
 
 
     opens pwr.bazydanych to javafx.fxml;

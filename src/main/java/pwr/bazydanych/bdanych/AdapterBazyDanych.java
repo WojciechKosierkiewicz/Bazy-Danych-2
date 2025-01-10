@@ -4,6 +4,11 @@ import java.util.Vector;
 
 public class AdapterBazyDanych {
     private static AdapterBazyDanych instance;
+
+    private AdapterBazyDanych() {
+        instance = this;
+    }
+
     public static AdapterBazyDanych getInstance() {
         if (instance == null) {
             instance = new AdapterBazyDanych();
