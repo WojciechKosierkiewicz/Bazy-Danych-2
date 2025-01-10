@@ -3,10 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WorkerUserManagementController">
-   <children>
-      <TextField fx:id="useridtextfield" layoutX="14.0" layoutY="14.0" promptText="Id użytkownika" />
-      <Button layoutX="175.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onZalogujCliked" text="Zaloguj" />
-      <Button fx:id="returnmovies" disable="true" layoutX="14.0" layoutY="53.0" mnemonicParsing="false" text="Disabled until logged in" />
-   </children>
+<AnchorPane prefHeight="421.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WorkerUserManagementController">
+    <children>
+        <TextField fx:id="useridtextfield" layoutX="14.0" layoutY="14.0" promptText="Id użytkownika" />
+        <Button layoutX="175.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onZalogujCliked" text="Zaloguj" />
+        <Button fx:id="returnmovies" disable="true" layoutX="14.0" layoutY="53.0" mnemonicParsing="false" text="Disabled until logged in" />
+        <TableView fx:id="tabelawynajetych" layoutX="255.0" layoutY="14.0" prefHeight="200.0" prefWidth="552.0">
+            <columns>
+                <TableColumn fx:id="tytulColumn" prefWidth="272.0" text="Tytuł" />
+                <TableColumn fx:id="dataWynajmuColumn" prefWidth="128.0" text="Data wynajmu" />
+                <TableColumn fx:id="kosztColumn" prefWidth="151.0" text="Koszt" />
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>

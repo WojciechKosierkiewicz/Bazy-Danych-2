@@ -4,19 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="Init">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerUserManagementController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/util.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/worker-user-management.fxml" afterDir="false" />
+    <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="Naprawa nowego widoku oraz dodanie wyłączanych guzików w widoku pracownika">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/SharedState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/SharedState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/WorkerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/WorkerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/bdanych/AdapterBazyDanych.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/bdanych/AdapterBazyDanych.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/Worker-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/Worker-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerUserManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerUserManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/worker-user-management.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/worker-user-management.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +43,9 @@
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -182,7 +176,7 @@
       <workItem from="1736520104055" duration="500000" />
       <workItem from="1736520975320" duration="183000" />
       <workItem from="1736521166977" duration="49000" />
-      <workItem from="1736521221653" duration="5128000" />
+      <workItem from="1736521221653" duration="6178000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -224,7 +218,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736375063243</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Naprawa nowego widoku oraz dodanie wyłączanych guzików w widoku pracownika">
+      <option name="closed" value="true" />
+      <created>1736526743946</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736526743946</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Naprawa nowego widoku oraz dodanie wyłączanych guzików w widoku pracownika">
+      <option name="closed" value="true" />
+      <created>1736526757217</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1736526757217</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,7 +242,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init" />
-    <option name="LAST_COMMIT_MESSAGE" value="Init" />
+    <MESSAGE value="Naprawa nowego widoku oraz dodanie wyłączanych guzików w widoku pracownika" />
+    <option name="LAST_COMMIT_MESSAGE" value="Naprawa nowego widoku oraz dodanie wyłączanych guzików w widoku pracownika" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
