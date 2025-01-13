@@ -5,11 +5,15 @@
 
 <AnchorPane prefHeight="350.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.AddMovieController">
 
-    <VBox alignment="CENTER" layoutX="100" layoutY="100" spacing="10">
-        <TextField fx:id="tytulField" promptText="Tytuł" />
-        <TextField fx:id="rezyserField" promptText="Reżyser" />
-        <TextField fx:id="gatunekField" promptText="Gatunek" />
-    </VBox>
-     <Button layoutX="143.0" layoutY="263.0" onAction="#onAddMovieButtonClick" text="Add Movie" />
-   <TextField fx:id="cena" layoutX="100.0" layoutY="203.0" promptText="Cena" />
+    <VBox alignment="CENTER" layoutX="100" layoutY="100" spacing="10" />
+     <Button layoutX="26.0" layoutY="213.0" onAction="#onAddMovieButtonClick" text="Add Movie" />
+   <TextField fx:id="cena" layoutX="14.0" layoutY="81.0" promptText="Cena" />
+     <TextField fx:id="tytulField" layoutX="14.0" layoutY="14.0" promptText="Tytuł" />
+     <TextField fx:id="gatunekField" layoutX="14.0" layoutY="47.0" promptText="Gatunek" />
+   <Button layoutX="171.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#szukajrezysera" text="SZUKAJ" />
+   <TableView layoutX="176.0" layoutY="44.0" prefHeight="296.0" prefWidth="206.0">
+     <columns>
+     </columns>
+   </TableView>
+   <TextField layoutX="236.0" layoutY="14.0" prefHeight="25.0" prefWidth="136.0" promptText="Rezyser" />
 </AnchorPane>

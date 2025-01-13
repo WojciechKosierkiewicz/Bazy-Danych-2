@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="\(&quot;_&quot;)/">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/AddMovieController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/MovieBrowserEditorController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WidokSzefaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/AddMovie.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/MovieBrowserEditor.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/WidokSzefa.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/MovieBrowserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/MovieBrowserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/WorkerViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/Worker-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/Worker-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/worker-user-management.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/worker-user-management.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -204,7 +195,7 @@
       <workItem from="1736806988926" duration="47000" />
       <workItem from="1736807044261" duration="1279000" />
       <workItem from="1736808337123" duration="1175000" />
-      <workItem from="1736809525455" duration="1065000" />
+      <workItem from="1736809525455" duration="1756000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -334,7 +325,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736809136038</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="\(&quot;_&quot;)/">
+      <option name="closed" value="true" />
+      <created>1736810898318</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1736810898318</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

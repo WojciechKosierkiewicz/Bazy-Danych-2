@@ -5,15 +5,17 @@
 
 <AnchorPane prefHeight="421.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WorkerUserManagementController">
     <children>
-        <TextField fx:id="useridtextfield" layoutX="14.0" layoutY="191.0" promptText="Id użytkownika" />
-        <Button layoutX="179.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#onZalogujCliked" text="Zaloguj" />
-        <Button fx:id="returnmovies" disable="true" layoutX="17.0" layoutY="233.0" mnemonicParsing="false" text="Disabled until logged in" />
-        <TableView fx:id="tabelawynajetych" layoutX="266.0" layoutY="191.0" prefHeight="200.0" prefWidth="552.0">
+        <TextField fx:id="useridtextfield" layoutX="14.0" layoutY="66.0" promptText="Id użytkownika" />
+        <Button layoutX="174.0" layoutY="66.0" mnemonicParsing="false" onMouseClicked="#onZalogujCliked" text="Zaloguj" />
+        <Button fx:id="returnmovies" disable="true" layoutX="17.0" layoutY="98.0" mnemonicParsing="false" text="Disabled until logged in" />
+        <TableView fx:id="tabelawynajetych" layoutX="266.0" layoutY="66.0" prefHeight="200.0" prefWidth="552.0">
             <columns>
                 <TableColumn fx:id="tytulColumn" prefWidth="263.0" text="Tytuł" />
                 <TableColumn fx:id="dataWynajmuColumn" prefWidth="137.0" text="Data wynajmu" />
                 <TableColumn fx:id="kosztColumn" prefWidth="151.0" text="Koszt" />
             </columns>
         </TableView>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#wyporzczylaniawiev" text="Zarządzaj wyporzyczalnią" />
+      <Separator layoutY="54.0" prefHeight="12.0" prefWidth="832.0" />
     </children>
 </AnchorPane>

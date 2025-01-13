@@ -70,4 +70,8 @@ public class WorkerUserManagementController {
         }
         AfterUserFoundOperations();
     }
+
+    @FXML
+    public void wyporzczylaniawiev(Event event) {
+    }
 }
