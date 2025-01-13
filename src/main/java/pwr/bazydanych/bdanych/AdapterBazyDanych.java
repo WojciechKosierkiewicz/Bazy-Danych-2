@@ -55,6 +55,7 @@ public class AdapterBazyDanych {
             }
         } catch (SQLException e) {
             System.out.println("Error fetching user: " + e.getMessage());
+            return null;
         }
 
         return user;
