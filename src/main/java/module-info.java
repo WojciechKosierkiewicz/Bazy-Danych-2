@@ -3,6 +3,7 @@ module pwr.bazydanych {
     requires javafx.fxml;
     requires jdk.compiler;
     requires java.sql;
+    requires java.dotenv;
 
 
     opens pwr.bazydanych to javafx.fxml;

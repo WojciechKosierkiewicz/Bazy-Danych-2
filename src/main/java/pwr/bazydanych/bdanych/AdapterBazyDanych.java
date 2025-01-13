@@ -3,13 +3,17 @@ package pwr.bazydanych.bdanych;
 import java.util.Vector;
 import java.sql.*;
 import javax.sql.*;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class AdapterBazyDanych {
     private static AdapterBazyDanych instance;
+    private String connectionURL;
 
     private Connection connection = null;
 
     private AdapterBazyDanych() {
+        Dotenv dotenv = Dotenv.load();
+        connectionURL = Dotenv.load().get("CONNECTION_URL");
         this.connection = connect();
         instance = this;
     }
