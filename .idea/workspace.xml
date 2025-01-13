@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="poprawka gitignore, wrzucenie skryptow">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="\(&quot;_&quot;)/">
+      <change afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/MovieBrowserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/MovieBrowser.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/bdanych/AdapterBazyDanych.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/bdanych/AdapterBazyDanych.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -83,7 +81,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "actions.on.save",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -95,7 +93,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Application.WorkerApplication">
+  <component name="RunManager" selected="Application.HelloApplication">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="pwr.bazydanych.HelloApplication" />
       <module name="BazyDanych" />
@@ -159,8 +157,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.WorkerApplication" />
         <item itemvalue="Application.HelloApplication" />
+        <item itemvalue="Application.WorkerApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -190,6 +188,8 @@
       <workItem from="1736521166977" duration="49000" />
       <workItem from="1736521221653" duration="8305000" />
       <workItem from="1736766647261" duration="92000" />
+      <workItem from="1736806988926" duration="47000" />
+      <workItem from="1736807044261" duration="341000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -300,6 +300,29 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init" />
