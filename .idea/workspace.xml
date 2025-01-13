@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="302720a9-bfb8-4f29-a52d-3c92324fcd2c" name="Changes" comment="\(&quot;_&quot;)/">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/MovieBrowserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pwr/bazydanych/MovieBrowser.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/bdanych/Film.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/bdanych/Film.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/MovieBrowserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pwr/bazydanych/ui/MovieBrowserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,41 +57,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Application.WorkerApplication.executor": "Run",
-    "Maven.BazyDanych [clean].executor": "Run",
-    "Maven.BazyDanych [compile].executor": "Run",
-    "Maven.BazyDanych [deploy].executor": "Run",
-    "Maven.BazyDanych [javafx:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "C:/Users/wojte/IdeaProjects/BazyDanych/src/main/java/pwr/bazydanych",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.WorkerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BazyDanych [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BazyDanych [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BazyDanych [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BazyDanych [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/wojte/IdeaProjects/BazyDanych/src/main/java/pwr/bazydanych&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "MySQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;MySQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.HelloApplication">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="pwr.bazydanych.HelloApplication" />
@@ -189,7 +188,8 @@
       <workItem from="1736521221653" duration="8305000" />
       <workItem from="1736766647261" duration="92000" />
       <workItem from="1736806988926" duration="47000" />
-      <workItem from="1736807044261" duration="341000" />
+      <workItem from="1736807044261" duration="1279000" />
+      <workItem from="1736808337123" duration="686000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -295,7 +295,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736777290149</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="\(&quot;_&quot;)/">
+      <option name="closed" value="true" />
+      <created>1736807665555</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1736807665555</updated>
+    </task>
+    <task id="LOCAL-00015" summary="\(&quot;_&quot;)/">
+      <option name="closed" value="true" />
+      <created>1736807715715</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1736807715715</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,7 +349,8 @@
     <MESSAGE value="update gitignore 2" />
     <MESSAGE value="zwracanie user = null w przypadku nie znalezienia usera w bazie" />
     <MESSAGE value="poprawka gitignore, wrzucenie skryptow" />
-    <option name="LAST_COMMIT_MESSAGE" value="poprawka gitignore, wrzucenie skryptow" />
+    <MESSAGE value="\(&quot;_&quot;)/" />
+    <option name="LAST_COMMIT_MESSAGE" value="\(&quot;_&quot;)/" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
