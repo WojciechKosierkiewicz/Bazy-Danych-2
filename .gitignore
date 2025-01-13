@@ -13,7 +13,6 @@ target/
 *.iws
 *.iml
 *.ipr
-/SkryptySQL
 
 ### Eclipse ###
 .apt_generated
