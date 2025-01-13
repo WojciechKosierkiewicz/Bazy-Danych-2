@@ -3,9 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="83.0" prefWidth="173.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WorkerViewController">
+<AnchorPane prefHeight="118.0" prefWidth="197.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WorkerViewController">
    <children>
       <Button fx:id="zarzadzajfilmami" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#wybranozarzadzajfilmami" text="Zarządzaj filmami" />
       <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onMouseClicked="#wybranozarzadzajuzytkownikami" text="Zarządzaj użytkownikami" />
+      <Button layoutX="17.0" layoutY="79.0" mnemonicParsing="false" onMouseClicked="#movetoszef" text="Strefa Szefostwa" />
    </children>
 </AnchorPane>
