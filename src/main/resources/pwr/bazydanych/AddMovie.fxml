@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="350.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.AddMovieController">
+
+    <VBox alignment="CENTER" layoutX="100" layoutY="100" spacing="10">
+        <TextField fx:id="tytulField" promptText="Tytuł" />
+        <TextField fx:id="rezyserField" promptText="Reżyser" />
+        <TextField fx:id="gatunekField" promptText="Gatunek" />
+    </VBox>
+     <Button layoutX="143.0" layoutY="263.0" onAction="#onAddMovieButtonClick" text="Add Movie" />
+   <TextField fx:id="cena" layoutX="100.0" layoutY="203.0" promptText="Cena" />
+</AnchorPane>

@@ -57,4 +57,5 @@ public class MovieBrowserController
         tableView.getItems().clear();
         tableView.getItems().addAll(filmyquery);
     }
+
 }

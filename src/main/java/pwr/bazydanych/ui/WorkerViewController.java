@@ -14,4 +14,9 @@ public class WorkerViewController {
     protected void wybranozarzadzajuzytkownikami() {
         util.switch_scene("worker-user-management.fxml");
     }
+
+    @FXML
+    public void movetoszef() {
+        util.switch_scene("WidokSzefa.fxml");
+    }
 }
