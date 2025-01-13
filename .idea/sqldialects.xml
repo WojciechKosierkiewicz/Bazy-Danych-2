@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/SkryptySQL/DostepnoscFilmu.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SkryptySQL/ElementyZamowien.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SkryptySQL/Filmy.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SkryptySQL/Lokacje.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SkryptySQL/Rezerwacje.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SkryptySQL/Rezyser.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SkryptySQL/Uzytkownicy.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SkryptySQL/Zamowienia.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SkryptySQL/wyzwalacze.sql" dialect="MySQL" />
+  </component>
+</project>

@@ -8,12 +8,16 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class AdapterBazyDanych {
     private static AdapterBazyDanych instance;
     private String connectionURL;
+    private String user;
+    private String password;
 
     private Connection connection = null;
 
     private AdapterBazyDanych() {
         Dotenv dotenv = Dotenv.load();
         connectionURL = Dotenv.load().get("CONNECTION_URL");
+        user = Dotenv.load().get("USER");
+        password = Dotenv.load().get("PASSWORD");
         this.connection = connect();
         instance = this;
     }
@@ -21,7 +25,7 @@ public class AdapterBazyDanych {
     private Connection connect() {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("");
+            conn = DriverManager.getConnection(connectionURL, user, password);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -94,8 +98,16 @@ public class AdapterBazyDanych {
         return true;
     }
 
+    public boolean isUserValidated(String id_user) {
+        // TODO
+        boolean validated = false;
+
+        return validated;
+    }
+
     public boolean validateUser(String id_user) {
         // TODO
+        //dodatkowa kolumna w bazie
         return true;
     }
 
