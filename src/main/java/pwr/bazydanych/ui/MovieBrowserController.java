@@ -31,12 +31,12 @@ public class MovieBrowserController
 
     @javafx.fxml.FXML
     public void initialize() {
-        gatunek.getItems().addAll(AdapterBazyDanych.getInstance().getGatunki());
+        gatunek.getItems().addAll(AdapterBazyDanych.getInstance().getGenres());
     }
 
     @javafx.fxml.FXML
     public void onAddButtonClick() {
-        filmyquery = AdapterBazyDanych.getInstance().getFilmy(tytulField.getText(), rezyserField.getText(), gatunek.getValue().toString());
+        filmyquery = AdapterBazyDanych.getInstance().getMoviesByArg(tytulField.getText(), rezyserField.getText(), gatunek.getValue().toString());
         tableView.getItems().clear();
         for (Film film : filmyquery) {
             tableView.getItems().add(film);
