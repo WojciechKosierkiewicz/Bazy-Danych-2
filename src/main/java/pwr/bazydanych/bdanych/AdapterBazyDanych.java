@@ -1,11 +1,15 @@
 package pwr.bazydanych.bdanych;
 
 import java.util.Vector;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class AdapterBazyDanych {
     private static AdapterBazyDanych instance;
+    private String connectionURL;
 
     private AdapterBazyDanych() {
+        Dotenv dotenv = Dotenv.load();
+        connectionURL = Dotenv.load().get("CONNECTION_URL");
         instance = this;
     }
 
