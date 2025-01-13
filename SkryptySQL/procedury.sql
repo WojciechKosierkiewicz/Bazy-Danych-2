@@ -3,47 +3,49 @@ DELIMITER //
 CREATE PROCEDURE DodajFilm(
     IN TytulFilm VARCHAR(255),
     IN GatunekFilm VARCHAR(255),
-    IN CenaDziennaFilm FLOAT(3,2),
+    IN CenaDziennaFilm FLOAT(3, 2),
     IN RezyserID INT,
     IN LokacjaID INT,
     IN IloscFilmow INT
 )
 BEGIN
-	DECLARE NowyID_Filmu INT;
-    -- Rozpoczynamy transakcję
+    DECLARE NowyID_Filmu INT;
+
     START TRANSACTION;
-    
-    
 
     -- Sprawdzenie, czy reżyser istnieje
     IF NOT EXISTS (SELECT 1 FROM Rezyser WHERE ID_Rezyser = RezyserID) THEN
-        SIGNAL SQLSTATE '45000' 
-        SET MESSAGE_TEXT = 'Reżyser nie istnieje.';
+        SIGNAL SQLSTATE '45001'
+            SET MESSAGE_TEXT = 'Reżyser nie istnieje.';
     END IF;
 
     -- Sprawdzenie, czy lokacja istnieje
     IF NOT EXISTS (SELECT 1 FROM Lokacje WHERE ID_Lokacji = LokacjaID) THEN
-        SIGNAL SQLSTATE '45000' 
-        SET MESSAGE_TEXT = 'Lokacja nie istnieje.';
+        SIGNAL SQLSTATE '45002'
+            SET MESSAGE_TEXT = 'Lokacja nie istnieje.';
     END IF;
 
-    IF NOT EXISTS (SELECT 1 FROM Filmy WHERE Tytul = TytulFilm) THEN
-		INSERT INTO Filmy (Tytul, Gatunek, Cena_dzienna, ID_Rezyser)
-		VALUES (TytulFilm, GatunekFilm, CenaDziennaFilm, RezyserID);
-		-- Pobranie ID dodanego filmu jeżeli dodano
-		SET NowyID_Filmu = LAST_INSERT_ID();
-	ELSE
-		-- W przeciwnym wypadku bierzemy ID z tabeli Filmy
-		SELECT ID_Filmu INTO NowyID_Filmu
-		FROM Filmy
-		WHERE Tytul = TytulFilm;
-	END IF;
+    -- Sprawdzenie poprawności ceny dziennej
+    IF CenaDziennaFilm <= 0 THEN
+        SIGNAL SQLSTATE '45003'
+            SET MESSAGE_TEXT = 'Cena dzienna musi być większa od zera.';
+    END IF;
 
-    -- Dodanie informacji o dostępności filmu do tabeli DostepnoscFilmu
+    -- Dodanie filmu
+    IF NOT EXISTS (SELECT 1 FROM Filmy WHERE Tytul = TytulFilm) THEN
+        INSERT INTO Filmy (Tytul, Gatunek, Cena_dzienna, ID_Rezyser)
+        VALUES (TytulFilm, GatunekFilm, CenaDziennaFilm, RezyserID);
+        SET NowyID_Filmu = LAST_INSERT_ID();
+    ELSE
+        SELECT ID_Filmu INTO NowyID_Filmu
+        FROM Filmy
+        WHERE Tytul = TytulFilm;
+    END IF;
+
+    -- Dodanie dostępności filmu
     INSERT INTO DostepnoscFilmu (ID_Filmu, ID_Lokacji, Ilosc)
     VALUES (NowyID_Filmu, LokacjaID, IloscFilmow);
 
-    -- Zatwierdzenie transakcji
     COMMIT;
 END //
 

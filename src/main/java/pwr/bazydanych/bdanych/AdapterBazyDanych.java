@@ -111,10 +111,34 @@ public class AdapterBazyDanych {
         return true;
     }
 
-    public boolean addMovie(String title, String genre, String year, String director_id, String price) {
-        // TODO
+    public boolean addMovie(String title, String genre, Double CenaDziennaFilm, int director_id, int lokacja_id, int ilosc) {
+        String procedureCall = "CALL DodajFilm(?, ?, ?, ?, ?, ?);";
 
-        return true;
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setString(1, title);
+            stmt.setString(2, genre);
+            stmt.setDouble(3, CenaDziennaFilm);
+            stmt.setInt(4, director_id);
+            stmt.setInt(5, lokacja_id);
+            stmt.setInt(6, ilosc);
+
+            stmt.execute();
+            System.out.println("Film dodany pomyślnie.");
+            return true;
+        } catch (SQLException e) {
+            if ("45001".equals(e.getSQLState())) {
+                System.err.println("Błąd procedury: Reżyser nie istnieje.");
+            } else if ("45002".equals(e.getSQLState())) {
+                System.err.println("Błąd procedury: Lokacja nie istnieje.");
+            } else if ("45003".equals(e.getSQLState())) {
+                System.err.println("Błąd procedury: Cena dzienna musi być większa od zera.");
+            } else {
+                System.err.println("Nieznany błąd SQL: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Nieznany błąd: " + e.getMessage());
+        }
+        return false;
     }
 
     public boolean addDirector(String name, String surname) {
@@ -220,6 +244,29 @@ public class AdapterBazyDanych {
             System.out.println("Error fetching genres: " + e.getMessage());
         }
         return genres;
+    }
+
+    public Vector<Lokacja> getLokacje(){
+        //TODO
+        Lokacja lokacja = null;
+        String query = "SELECT ID_lokacji, nazwa, adres, nr_telefonu FROM Lokacje";
+
+        Vector<Lokacja> lokacje = new Vector<Lokacja>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lokacja = new Lokacja();
+                    lokacja.id = rs.getInt("ID_lokacji");
+                    lokacja.nazwa = rs.getString("nazwa");
+                    lokacja.adres = rs.getString("adres");
+                    lokacja.nr_telefonu = rs.getString("nr_telefonu");
+                    lokacje.add(lokacja);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching locations: " + e.getMessage());
+        }
+        return lokacje;
     }
 }
 
