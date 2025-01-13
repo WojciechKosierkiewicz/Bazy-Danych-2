@@ -39,6 +39,10 @@ public class AdapterBazyDanych {
         //TODO
         User user = null;
         String query = "SELECT ID_uzytkownika, imie, nazwisko, nrdowodu FROM Uzytkownicy WHERE ID_uzytkownika = ?";
+        if (connection == null) {
+            System.out.println("Connection is null");
+            return null;
+        }
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, id_user);
