@@ -40,7 +40,6 @@ public class AdapterBazyDanych {
     }
 
     public User getUser(String id_user) {
-        //TODO
         User user = null;
         String query = "SELECT ID_uzytkownika, imie, nazwisko, nrdowodu FROM Uzytkownicy WHERE ID_uzytkownika = ?";
 
@@ -169,7 +168,6 @@ public class AdapterBazyDanych {
     }
 
     public Vector<Film> getMoviesByDirector (String director){
-        //TODO
         Vector<Film> movies = new Vector<>();
         String query = "SELECT f.Tytul, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser WHERE r.Nazwisko = ? OR r.Imie = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -260,7 +258,6 @@ public class AdapterBazyDanych {
     }
 
     public Vector<Lokacja> getLokacje(){
-        //TODO
         Lokacja lokacja = null;
         String query = "SELECT ID_lokacji, nazwa, adres, nr_telefonu FROM Lokacje";
 
@@ -280,6 +277,27 @@ public class AdapterBazyDanych {
             System.out.println("Error fetching locations: " + e.getMessage());
         }
         return lokacje;
+    }
+
+    public Vector<Rezyser> getRezyserzy(){
+        Rezyser rezyser = null;
+        String query = "SELECT ID_Rezyser, Imie, Nazwisko FROM Rezyser";
+
+        Vector<Rezyser> rezyserzy = new Vector<Rezyser>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    rezyser = new Rezyser();
+                    rezyser.id = rs.getInt("ID_Rezyser");
+                    rezyser.imie = rs.getString("Imie");
+                    rezyser.nazwisko = rs.getString("Nazwisko");
+                    rezyserzy.add(rezyser);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching directors: " + e.getMessage());
+        }
+        return rezyserzy;
     }
 }
 
