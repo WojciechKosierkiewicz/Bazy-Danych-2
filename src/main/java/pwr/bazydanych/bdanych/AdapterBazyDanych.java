@@ -191,32 +191,43 @@ public class AdapterBazyDanych {
     }
 
     public Vector<Film> getMoviesByArg(String Director, String Title, String Genre){
+        System.out.println("Director: " + Director);
+        System.out.println("Title: " + Title);
+        System.out.println("Genre: " + Genre);
         Vector<Film> movies = new Vector<>();
-        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r ON f.ID_Rezyser = r.ID_Rezyser WHERE 1=1");
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Nazwisko, f.Gatunek " +
+                "FROM Filmy f " +
+                "JOIN Rezyser r ON f.ID_Rezyser = r.ID_Rezyser WHERE 1=1");
 
-        if (Director != null && !Director.isEmpty()) {
-            queryBuilder.append(" AND (r.Nazwisko = ? OR r.Imie = ?)");
+        if (Director != null && !Director.trim().isEmpty()) {
+            queryBuilder.append(" AND (r.Nazwisko LIKE ? OR r.Imie LIKE ?)");
         }
-        if (Title != null && !Title.isEmpty()) {
-            queryBuilder.append(" AND f.Tytul = ?");
+        if (Title != null && !Title.trim().isEmpty()) {
+            queryBuilder.append(" AND f.Tytul LIKE ?");
         }
-        if (Genre != null && !Genre.isEmpty()) {
-            queryBuilder.append(" AND f.Gatunek = ?");
+        if (Genre != null && !Genre.trim().isEmpty()) {
+            queryBuilder.append(" AND f.Gatunek LIKE ?");
         }
+
 
         try (PreparedStatement stmt = connection.prepareStatement(queryBuilder.toString())) {
             int index = 1;
+
+
             if (Director != null && !Director.isEmpty()) {
                 stmt.setString(index++, "%" + Director + "%");
                 stmt.setString(index++, "%" + Director + "%");
             }
-            if (Title != null && !Title.isEmpty()) {
+            if (Title != null && !Title.trim().isEmpty()) {
                 stmt.setString(index++, "%" + Title + "%");
             }
-            if (Genre != null && !Genre.isEmpty()) {
+            if (Genre != null && !Genre.trim().isEmpty()) {
                 stmt.setString(index++, "%" + Genre + "%");
             }
 
+            System.out.println("Zapytanie SQL: " + queryBuilder.toString());
+
+            // Wykonanie zapytania
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Film film = new Film();
@@ -229,6 +240,7 @@ public class AdapterBazyDanych {
         } catch (SQLException e) {
             System.out.println("Error fetching movies: " + e.getMessage());
         }
+
         return movies;
     }
 
