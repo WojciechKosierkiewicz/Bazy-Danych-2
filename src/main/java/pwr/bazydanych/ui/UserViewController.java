@@ -24,8 +24,13 @@ public class UserViewController {
     private TableColumn<WynajetyFilm, Double> kosztColumn;
     @FXML
     public void initialize() {
-       AdapterBazyDanych adapter = AdapterBazyDanych.getInstance();
-       Vector<WynajetyFilm> wynajete = adapter.getFilmyWynajeteBy(SharedState.username);
+        AdapterBazyDanych adapter = AdapterBazyDanych.getInstance();
+        System.out.println("SharedState.username: " + SharedState.username);
+        Vector<WynajetyFilm> wynajete = adapter.getFilmyWynajeteBy(SharedState.username);
+        System.out.println("Number of rented movies: " + wynajete.size());
+        for (WynajetyFilm film : wynajete) {
+            System.out.println("Movie: " + film.Tytul + ", Cost: " + film.aktualnykoszt + ", Date: " + film.dataWypozyczenia);
+        }
         ObservableList<WynajetyFilm> wynajetelist = FXCollections.observableArrayList(wynajete);
         tytulColumn.setCellValueFactory(new PropertyValueFactory<>("Tytul"));
         dataWynajmuColumn.setCellValueFactory(new PropertyValueFactory<>("dataWypozyczenia"));

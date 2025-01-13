@@ -22,7 +22,7 @@ public class HelloController {
                 User user = adapter.getUser(nameField.getText());
                 if (user != null) {
                     new SimpleDialog("Hello, " + user.imie + " " + user.nazwisko + "!");
-                    SharedState.username = user.imie + " " + user.nazwisko;
+                    SharedState.username = user.id;
                     util.switch_scene("user-view.fxml");
                 } else {
                     new SimpleDialog("Nie znaleziono użytkownika o podanym id.");

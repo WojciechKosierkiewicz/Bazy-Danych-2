@@ -1,12 +1,27 @@
 package pwr.bazydanych.bdanych;
 
 import java.util.Vector;
+import java.sql.*;
+import javax.sql.*;
 
 public class AdapterBazyDanych {
     private static AdapterBazyDanych instance;
 
+    private Connection connection = null;
+
     private AdapterBazyDanych() {
+        this.connection = connect();
         instance = this;
+    }
+
+    private Connection connect() {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
     }
 
     public static AdapterBazyDanych getInstance() {
@@ -18,43 +33,49 @@ public class AdapterBazyDanych {
 
     public User getUser(String id_user) {
         //TODO
-        System.out.println("|" + id_user + "|");
-        if (id_user.equals("123")) {
-            User user = new User();
-            user.imie = "Kocham";
-            user.nazwisko = "Pwr";
-            user.id = "123";
-            user.nrDowodu = "<3";
-            return user;
+        User user = null;
+        String query = "SELECT ID_uzytkownika, imie, nazwisko, nrdowodu FROM Uzytkownicy WHERE ID_uzytkownika = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, id_user);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    user = new User();
+                    user.imie = rs.getString("imie");
+                    user.nazwisko = rs.getString("nazwisko");
+                    user.id = rs.getString("ID_uzytkownika");
+                    user.nrDowodu = rs.getString("nrdowodu");
+                } else {
+                    System.out.println("User not found");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching user: " + e.getMessage());
         }
-        else {
-            System.out.println("err nie znaleziono użytkownika");
-            return null;
-        }
+
+        return user;
     }
 
     public Vector<WynajetyFilm> getFilmyWynajeteBy(String id_user) {
-        //TODO
         Vector<WynajetyFilm> wynajete = new Vector<WynajetyFilm>();
-        WynajetyFilm film = new WynajetyFilm();
-        film.Tytul = "Harry Potter";
-        film.aktualnykoszt = 10.0;
-        film.dataWypozyczenia = "2021-01-01";
-        wynajete.add(film);
-
-        WynajetyFilm film2 = new WynajetyFilm();
-        film2.Tytul = "Harry Potter 2";
-        film2.aktualnykoszt = 20.0;
-        film2.dataWypozyczenia = "2021-01-02";
-        wynajete.add(film2);
-
-        WynajetyFilm film3 = new WynajetyFilm();
-        film3.Tytul = "Harry Potter 2137";
-        film3.aktualnykoszt = 30.0;
-        film3.dataWypozyczenia = "2021-01-03";
-        wynajete.add(film3);
-
-
+        String query = "SELECT f.Tytul, DATEDIFF(sysdate(), data_rozpoczecia) * f.Cena_dzienna as aktualnykoszt, z.data_rozpoczecia FROM Zamowienia z " +
+                "JOIN Elementy_zamowien e on z.ID_zamowienia = e.ID_zamowienia " +
+                "JOIN Filmy f on e.ID_filmu = f.ID_filmu " +
+                "WHERE z.ID_uzytkownika = ? AND z.data_faktycznego_zakonczenia IS NULL";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, id_user);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    WynajetyFilm film = new WynajetyFilm();
+                    film.Tytul = rs.getString("Tytul");
+                    film.aktualnykoszt = rs.getDouble("aktualnykoszt");
+                    film.dataWypozyczenia = rs.getString("data_rozpoczecia");
+                    wynajete.add(film);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching movies: " + e.getMessage());
+        }
         return wynajete;
     }
 
@@ -85,14 +106,46 @@ public class AdapterBazyDanych {
     }
 
     public Vector<Film> getMoviesMatching (String expression){
-        //TODO
-        // Zwracaj liste filmmow pasujacych do wyrazenia np Har znajdzie Harrego  POttera
-        return null;
+        Vector<Film> movies = new Vector<>();
+        String query = "SELECT f.Tytul, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser WHERE f.Tytul LIKE ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "%" + expression + "%");
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Film film = new Film();
+                    film.tytul = rs.getString("Tytul");
+                    film.rezyser = rs.getString("Nazwisko");
+                    film.gatunek = rs.getString("Gatunek");
+                    movies.add(film);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching movies: " + e.getMessage());
+        }
+
+        return movies;
     }
 
     public Vector<Film> getMoviesByDirector (String director){
         //TODO
-        // Zwracaj liste filmow danego rezysera po czesci nazwiskak i imienia np Stev znajdzie Stevena Spielberga ale tez Spiel znajdzide Stevena Spielberga
+        Vector<Film> movies = new Vector<>();
+        String query = "SELECT f.Tytul, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser WHERE r.Nazwisko = ? OR r.Imie = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, director);
+            stmt.setString(2, director);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Film film = new Film();
+                    film.tytul = rs.getString("Tytul");
+                    film.rezyser = rs.getString("Nazwisko");
+                    film.gatunek = rs.getString("Gatunek");
+                    movies.add(film);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching movies: " + e.getMessage());
+        }
         return null;
     }
 }
