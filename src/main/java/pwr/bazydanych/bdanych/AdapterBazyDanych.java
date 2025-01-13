@@ -15,6 +15,10 @@ public class AdapterBazyDanych {
         Dotenv dotenv = Dotenv.load();
         connectionURL = Dotenv.load().get("CONNECTION_URL");
         this.connection = connect();
+        if( connection == null) {
+            System.out.println("Connection failed");
+            return;
+        }
         instance = this;
     }
 
