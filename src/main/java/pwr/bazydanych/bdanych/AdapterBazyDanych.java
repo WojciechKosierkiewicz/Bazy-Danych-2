@@ -184,7 +184,6 @@ public class AdapterBazyDanych {
             int index = 1;
             if (Director != null && !Director.isEmpty()) {
                 stmt.setString(index++, '%' + Director + '%');
-                stmt.setString(index++, Director);
             }
             if (Title != null && !Title.isEmpty()) {
                 stmt.setString(index++, '%' + Title + '%');
