@@ -207,13 +207,14 @@ public class AdapterBazyDanych {
         try (PreparedStatement stmt = connection.prepareStatement(queryBuilder.toString())) {
             int index = 1;
             if (Director != null && !Director.isEmpty()) {
-                stmt.setString(index++, '%' + Director + '%');
+                stmt.setString(index++, "%" + Director + "%");
+                stmt.setString(index++, "%" + Director + "%");
             }
             if (Title != null && !Title.isEmpty()) {
-                stmt.setString(index++, '%' + Title + '%');
+                stmt.setString(index++, "%" + Title + "%");
             }
             if (Genre != null && !Genre.isEmpty()) {
-                stmt.setString(index++, '%' + Genre + '%');
+                stmt.setString(index++, "%" + Genre + "%");
             }
 
             try (ResultSet rs = stmt.executeQuery()) {

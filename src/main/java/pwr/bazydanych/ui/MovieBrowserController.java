@@ -44,11 +44,10 @@ public class MovieBrowserController
         String tytul = tytulField.getText();
         String rezyser = rezyserField.getText();
         String genre;
-        try {
+        if (gatunek.getValue() != null) {
             genre = gatunek.getValue().toString();
-        }
-        catch (Exception e){
-            genre = "";
+        } else {
+            genre = null; // Jeśli nie wybrano wartości, ustaw null.
         }
         System.out.println("SZUKAM TYTUL : " + tytul+ "Rezyser : " + rezyser + "Gatunek : " + genre);
         filmyquery = AdapterBazyDanych.getInstance().getMoviesByArg(rezyser,tytul,genre);
