@@ -39,4 +39,9 @@ public class UserViewController {
         HistoriaWynajmu.setItems(wynajetelist);
 
     }
+
+    @FXML
+    public void browsemoviescliked() {
+        util.switch_scene("MovieBrowser.fxml");
+    }
 }

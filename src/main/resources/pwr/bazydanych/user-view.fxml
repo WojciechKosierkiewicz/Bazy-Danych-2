@@ -13,5 +13,6 @@
               <TableColumn fx:id="kosztColumn" prefWidth="88.0" text="Koszt" />
           </columns>
       </TableView>
+      <Button layoutX="121.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#browsemoviescliked" text="Przeglądaj filmy" />
    </children>
 </AnchorPane>

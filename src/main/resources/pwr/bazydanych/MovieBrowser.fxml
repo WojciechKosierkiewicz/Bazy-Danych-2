@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.MovieBrowserController">
+
+    <top>
+        <HBox alignment="CENTER" prefHeight="28.0" prefWidth="652.0" spacing="10">
+            <TextField fx:id="tytulField" promptText="Tytuł" />
+            <TextField fx:id="rezyserField" promptText="Reżyser" />
+         <ChoiceBox fx:id="gatunek" prefWidth="150.0" />
+            <Button onAction="#onAddButtonClick" text="Szukaj" />
+        </HBox>
+    </top>
+
+    <center>
+        <TableView fx:id="tableView" prefHeight="440.0" prefWidth="721.0">
+            <columns>
+                <TableColumn fx:id="tytulColumn" prefWidth="854.0" text="Tytuł" />
+                <TableColumn fx:id="rezyserColumn" prefWidth="205.0" text="Reżyser" />
+                <TableColumn fx:id="gatunekColumn" minWidth="0.0" prefWidth="140.0" text="Gatunek" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
