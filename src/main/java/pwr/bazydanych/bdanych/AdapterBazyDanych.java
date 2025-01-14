@@ -85,6 +85,27 @@ public class AdapterBazyDanych {
         return wynajete;
     }
 
+    public Vector<Zamowienie> getZamowienia(String id_user){
+        Vector<Zamowienie> zamowienia = new Vector<Zamowienie>();
+        String query = "SELECT ID_zamowienia, ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia FROM Zamowienia WHERE ID_uzytkownika = ? AND data_faktycznego_zakonczenia IS NULL";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, id_user);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Zamowienie zamowienie = new Zamowienie();
+                    zamowienie.ID_Zamowienia = rs.getInt("ID_zamowienia");
+                    zamowienie.ID_Klienta = rs.getInt("ID_uzytkownika");
+                    zamowienie.dataWypozyczenia = rs.getString("data_rozpoczecia");
+                    zamowienie.dataZakonczenia = rs.getString("data_oczekiwanego_zakonczenia");
+                    zamowienia.add(zamowienie);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching orders: " + e.getMessage());
+        }
+        return zamowienia;
+    }
+
     public boolean returnMovie() {
         // TODO
         return true;
