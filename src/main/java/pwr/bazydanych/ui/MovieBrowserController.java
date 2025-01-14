@@ -58,4 +58,8 @@ public class MovieBrowserController
         tableView.getItems().addAll(filmyquery);
     }
 
+    @javafx.fxml.FXML
+    public void goback() {
+        util.switch_scene("UserView.fxml");
+    }
 }
