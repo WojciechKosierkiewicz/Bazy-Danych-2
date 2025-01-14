@@ -60,6 +60,6 @@ public class MovieBrowserController
 
     @javafx.fxml.FXML
     public void goback() {
-        util.switch_scene("UserView.fxml");
+        util.switch_scene("user-view.fxml");
     }
 }

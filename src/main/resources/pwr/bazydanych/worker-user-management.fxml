@@ -7,7 +7,7 @@
     <children>
         <TextField fx:id="useridtextfield" layoutX="14.0" layoutY="66.0" promptText="Id użytkownika" />
         <Button layoutX="174.0" layoutY="66.0" mnemonicParsing="false" onMouseClicked="#onZalogujCliked" text="Zaloguj" />
-        <Button fx:id="returnmovies" disable="true" layoutX="17.0" layoutY="98.0" mnemonicParsing="false" text="Disabled until logged in" />
+        <Button fx:id="returnmovies" disable="true" layoutX="17.0" layoutY="98.0" mnemonicParsing="false" onMouseClicked="#returnmovie" text="Zwroc film" />
         <TableView fx:id="tabelawynajetych" layoutX="266.0" layoutY="66.0" prefHeight="200.0" prefWidth="552.0">
             <columns>
                 <TableColumn fx:id="tytulColumn" prefWidth="263.0" text="Tytuł" />

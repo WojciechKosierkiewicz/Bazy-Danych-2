@@ -28,10 +28,6 @@ public class Film {
         this.gatunek = gatunek;
     }
 
-    public void setRezyser(Rezyser rezyser) {
-        this.rezyserNazwisko = rezyser;
-    }
-
     public void setRezyserImie(String rezyserImie) {
         this.rezyserImie = rezyserImie;
     }

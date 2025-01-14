@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import org.w3c.dom.events.Event;
 import pwr.bazydanych.bdanych.AdapterBazyDanych;
 import pwr.bazydanych.bdanych.User;
 import pwr.bazydanych.bdanych.WynajetyFilm;
@@ -74,5 +75,12 @@ public class WorkerUserManagementController {
     @FXML
     public void wyporzczylaniawiev() {
         util.switch_scene("WidokWypozyczalni.fxml");
+    }
+
+    @FXML
+    public void returnmovie(Event event) {
+        WynajetyFilm selectedFilm = tabelawynajetych.getSelectionModel().getSelectedItem();
+        AdapterBazyDanych.getInstance().zwracanieFilmu(selectedFilm);
+        AfterUserFoundOperations();
     }
 }
