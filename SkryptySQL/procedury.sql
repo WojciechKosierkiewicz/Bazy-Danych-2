@@ -207,4 +207,19 @@ BEGIN
         UPDATE Uzytkownicy SET Uzytkownicy.Zatwierdzony = 1 WHERE Uzytkownicy.ID_uzytkownika = ID_uzytkownika;
     END IF;
 end //
+DELIMITER ;
+DELIMITER //
+CREATE PROCEDURE dodajRezysera(
+    IN Imie VARCHAR(100),
+    IN Nazwisko VARCHAR(100)
+)
+BEGIN
+    IF EXISTS (SELECT 1 FROM Rezyser WHERE Rezyser.Imie = Imie AND Rezyser.Nazwisko = Nazwisko) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Reżyser już istnieje.';
+    ELSE
+        INSERT INTO Rezyser (Imie, Nazwisko)
+        VALUES (Imie, Nazwisko);
+    END IF;
+END //
 

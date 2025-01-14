@@ -175,7 +175,22 @@ public class AdapterBazyDanych {
     }
 
     public boolean addDirector(String name, String surname) {
-
+        String procedureCall = "CALL DodajRezysera(?, ?);";
+        try(CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setString(1, name);
+            stmt.setString(2, surname);
+            stmt.execute();
+            System.out.println("Reżyser dodany pomyślnie.");
+            return true;
+        } catch (SQLException e) {
+            if ("45000".equals(e.getSQLState())) {
+                System.err.println("Błąd procedury: Reżyser już istnieje.");
+            } else {
+                System.err.println("Nieznany błąd SQL: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Nieznany błąd: " + e.getMessage());
+        }
         return true;
     }
 
