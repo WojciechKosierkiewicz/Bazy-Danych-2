@@ -1,9 +1,8 @@
-DELIMITER //
-
+DELIMITER // //
 CREATE PROCEDURE DodajFilm(
     IN TytulFilm VARCHAR(255),
     IN GatunekFilm VARCHAR(255),
-    IN CenaDziennaFilm FLOAT(3, 2),
+    IN CenaDziennaFilm FLOAT(5,2),
     IN RezyserID INT,
     IN LokacjaID INT,
     IN IloscFilmow INT
