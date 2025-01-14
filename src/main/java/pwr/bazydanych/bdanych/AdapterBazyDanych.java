@@ -142,16 +142,14 @@ public class AdapterBazyDanych {
         return true;
     }
 
-    public boolean addMovie(String title, String genre, Double CenaDziennaFilm, int director_id, int lokacja_id, int ilosc) {
-        String procedureCall = "CALL DodajFilm(?, ?, ?, ?, ?, ?);";
+    public boolean addMovie(String title, String genre, Double CenaDziennaFilm, int director_id) {
+        String procedureCall = "CALL DodajFilm(?, ?, ?, ?);";
 
         try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
             stmt.setString(1, title);
             stmt.setString(2, genre);
             stmt.setDouble(3, CenaDziennaFilm);
             stmt.setInt(4, director_id);
-            stmt.setInt(5, lokacja_id);
-            stmt.setInt(6, ilosc);
 
             stmt.execute();
             System.out.println("Film dodany pomyślnie.");
@@ -160,7 +158,7 @@ public class AdapterBazyDanych {
             if ("45001".equals(e.getSQLState())) {
                 System.err.println("Błąd procedury: Reżyser nie istnieje.");
             } else if ("45002".equals(e.getSQLState())) {
-                System.err.println("Błąd procedury: Lokacja nie istnieje.");
+                System.err.println("Błąd procedury: Film już istnieje.");
             } else if ("45003".equals(e.getSQLState())) {
                 System.err.println("Błąd procedury: Cena dzienna musi być większa od zera.");
             } else {
@@ -239,9 +237,6 @@ public class AdapterBazyDanych {
     }
 
     public Vector<Film> getMoviesByArg(String Director, String Title, String Genre){
-        System.out.println("Director: " + Director);
-        System.out.println("Title: " + Title);
-        System.out.println("Genre: " + Genre);
         Vector<Film> movies = new Vector<>();
         StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek " +
                 "FROM Filmy f " +
@@ -354,6 +349,53 @@ public class AdapterBazyDanych {
 
     public Vector<Rezyser> getRezyserzyByName(String name){
         return getRezyserzy();
+    }
+
+    public Vector<Film> getAvailableMovies(String Title, String Director, int ID_Lokacji){
+        Vector<Film> movies = new Vector<>();
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc " +
+                "FROM Filmy f " +
+                "JOIN Rezyser r ON f.ID_Rezyser = r.ID_Rezyser" +
+                "JOIN DostepnoscFilmu d on f.ID_filmu = d.ID_filmu" +
+                "JOIN Lokacje l on l.ID_Lokacji = d.ID_Lokacji" +
+                "WHERE Lokacje.ID_Lokacji = ?");
+
+        if (Director != null && !Director.trim().isEmpty()) {
+            queryBuilder.append(" AND (r.Nazwisko LIKE ? OR r.Imie LIKE ?)");
+        }
+        if (Title != null && !Title.trim().isEmpty()) {
+            queryBuilder.append(" AND f.Tytul LIKE ?");
+        }
+
+        try (PreparedStatement stmt = connection.prepareStatement(queryBuilder.toString())) {
+            int index = 1;
+
+            stmt.setInt(index++, ID_Lokacji);
+
+            if (Director != null && !Director.isEmpty()) {
+                stmt.setString(index++, "%" + Director + "%");
+                stmt.setString(index++, "%" + Director + "%");
+            }
+            if (Title != null && !Title.trim().isEmpty()) {
+                stmt.setString(index++, "%" + Title + "%");
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Film film = new Film();
+                    film.tytul = rs.getString("Tytul");
+                    film.rezyserNazwisko = rs.getString("Nazwisko");
+                    film.rezyserImie = rs.getString("Imie");
+                    film.gatunek = rs.getString("Gatunek");
+                    film.Ilosc = rs.getInt("Ilosc");
+                    movies.add(film);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching movies: " + e.getMessage());
+        }
+
+        return movies;
     }
 }
 
