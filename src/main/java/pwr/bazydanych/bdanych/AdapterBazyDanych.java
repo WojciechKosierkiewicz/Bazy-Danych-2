@@ -62,29 +62,6 @@ public class AdapterBazyDanych {
         return user;
     }
 
-    public Vector<WynajetyFilm> getFilmyWynajeteBy(String id_user) {
-        Vector<WynajetyFilm> wynajete = new Vector<WynajetyFilm>();
-        String query = "SELECT f.Tytul, DATEDIFF(sysdate(), data_rozpoczecia) * f.Cena_dzienna as aktualnykoszt, z.data_rozpoczecia FROM Zamowienia z " +
-                "JOIN Elementy_zamowien e on z.ID_zamowienia = e.ID_zamowienia " +
-                "JOIN Filmy f on e.ID_filmu = f.ID_filmu " +
-                "WHERE z.ID_uzytkownika = ? AND z.data_faktycznego_zakonczenia IS NULL";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, id_user);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    WynajetyFilm film = new WynajetyFilm();
-                    film.Tytul = rs.getString("Tytul");
-                    film.aktualnykoszt = rs.getDouble("aktualnykoszt");
-                    film.dataWypozyczenia = rs.getString("data_rozpoczecia");
-                    wynajete.add(film);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error fetching movies: " + e.getMessage());
-        }
-        return wynajete;
-    }
-
     public Vector<Zamowienie> getZamowienia(String id_user){
         Vector<Zamowienie> zamowienia = new Vector<Zamowienie>();
         String query = "SELECT z.ID_zamowienia, ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, SUM(cena_czastkowa)*DATEDIFF(SYSDATE(), data_rozpoczecia) as aktualnykoszt" +
@@ -108,6 +85,30 @@ public class AdapterBazyDanych {
             System.out.println("Error fetching orders: " + e.getMessage());
         }
         return zamowienia;
+    }
+
+    public Vector<WynajetyFilm> getWynajeteFilmy(int id_zamowienia){
+        Vector<WynajetyFilm> wynajete = new Vector<WynajetyFilm>();
+
+        String query = "SELECT Tytul, Cena_dzienna FROM Filmy f " +
+                "JOIN Elementy_zamowien e on f.ID_Filmu = e.ID_filmu " +
+                "JOIN Zamowienia z on e.ID_zamowienia = z.ID_zamowienia " +
+                "WHERE z.ID_zamowienia = ? ";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, id_zamowienia);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    WynajetyFilm film = new WynajetyFilm();
+                    film.Tytul = rs.getString("Tytul");
+                    film.aktualnykoszt = rs.getDouble("Cena_dzienna");
+                    wynajete.add(film);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching movies: " + e.getMessage());
+        }
+        return wynajete;
     }
 
     public boolean returnMovie() {
