@@ -1,4 +1,5 @@
 DELIMITER // //
+
 CREATE PROCEDURE DodajFilm(
     IN TytulFilm VARCHAR(255),
     IN GatunekFilm VARCHAR(255),
@@ -37,41 +38,24 @@ END //
 
 DELIMITER ;
 DELIMITER //
-
 CREATE PROCEDURE DodajRezerwację(
     IN ID_uzytkownika INT,
-    IN ID_filmu INT,
-    IN ID_lokacji INT,
+    IN ID_filmu_var INT,
+    IN ID_lokacji_var INT,
     IN data_rozpoczecia DATE,
     IN data_zakonczenia DATE
 )
 BEGIN
-    -- Sprawdzenie, czy użytkownik istnieje
-    IF NOT EXISTS (SELECT 1 FROM Uzytkownicy WHERE ID_uzytkownika = ID_uzytkownika) THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Użytkownik nie istnieje.';
-    END IF;
-
-    -- Sprawdzenie dostępności filmu
-    IF NOT EXISTS (SELECT 1 FROM DostepnoscFilmu WHERE FilmyID_Filmu = ID_filmu AND LokacjeID_Lokacji = ID_lokacji AND Ilosc > 0) THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Film nie jest dostępny w wybranej lokalizacji.';
-    END IF;
-
     -- Dodanie rezerwacji
-    INSERT INTO Rezerwacje (ID_uzytkownika, FilmyID_Filmu, Data_rozpoczecia, Data_zakonczenia)
+    INSERT INTO Rezerwacje (ID_uzytkownika, ID_filmu, data_rozpoczecia, date_zakonczenia)
     VALUES (ID_uzytkownika, ID_filmu, data_rozpoczecia, data_zakonczenia);
 
-    -- Zmniejszenie liczby kopii filmu
-    UPDATE DostepnoscFilmu
-    SET Ilosc = Ilosc - 1
-    WHERE FilmyID_Filmu = ID_filmu AND LokacjeID_Lokacji = ID_lokacji;
 END //
 
 DELIMITER ;
 DELIMITER //
-
-CREATE PROCEDURE ZakończRezerwację(
+DROP PROCEDURE IF EXISTS ZakończRezerwację;
+/*CREATE PROCEDURE ZakończRezerwację(
     IN ID_rezerwacji INT
 )
 BEGIN
@@ -93,66 +77,67 @@ BEGIN
     UPDATE DostepnoscFilmu
     SET Ilosc = Ilosc + 1
     WHERE FilmyID_Filmu = ID_filmu AND LokacjeID_Lokacji = ID_lokacji;
+END //*/
+
+DELIMITER ;
+DELIMITER //
+
+CREATE PROCEDURE DodajUzytkownika(
+    IN Imie_var VARCHAR(100),
+    IN Nazwisko_var VARCHAR(100),
+    IN Nr_dowodu_var VARCHAR(9)
+)
+BEGIN
+    INSERT INTO Uzytkownicy (Imie, Nazwisko, nrdowodu, zatwierdzony)
+    VALUES (Imie_var, Nazwisko_var, Nr_dowodu_var, FALSE);
 END //
 
 DELIMITER ;
 DELIMITER //
 
-CREATE PROCEDURE DodajUżytkownika(
-    IN Imie VARCHAR(100),
-    IN Nazwisko VARCHAR(100),
-    IN Nr_dowodu VARCHAR(9)
+CREATE PROCEDURE DodajWypozyczenie(
+    IN ID_uzytkownika_var INT,
+    IN ID_lokacji_var INT,
+    IN data_rozpoczecia_var DATE,
+    IN data_przewidywana_zakonczenia_var DATE
 )
 BEGIN
-    INSERT INTO Uzytkownicy (Imie, Nazwisko, Nr_dowodu)
-    VALUES (Imie, Nazwisko, Nr_dowodu);
-END //
-
-DELIMITER ;
-DELIMITER //
-
-CREATE PROCEDURE DodajWypożyczenie(
-    IN ID_uzytkownika INT,
-    IN ID_filmu INT,
-    IN ID_lokacji INT,
-    IN data_rozpoczecia DATE,
-    IN data_przewidywana_zakonczenia DATE
-)
-BEGIN
-    -- Sprawdzenie dostępności filmu
-    IF NOT EXISTS (SELECT 1 FROM DostepnoscFilmu WHERE FilmyID_Filmu = ID_filmu AND LokacjeID_Lokacji = ID_lokacji AND Ilosc > 0) THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Film nie jest dostępny w wybranej lokalizacji.';
-    END IF;
-
     -- Dodanie wypożyczenia
-    INSERT INTO Zamowienia (ID_uzytkownika, FilmyID_Filmu, LokacjeID_Lokacji, Data_rozpoczecia, Data_przewidywana_zakonczenia)
-    VALUES (ID_uzytkownika, ID_filmu, ID_lokacji, data_rozpoczecia, data_przewidywana_zakonczenia);
-
-    -- Zmniejszenie liczby kopii filmu
-    UPDATE DostepnoscFilmu
-    SET Ilosc = Ilosc - 1
-    WHERE FilmyID_Filmu = ID_filmu AND LokacjeID_Lokacji = ID_lokacji;
+    INSERT INTO Zamowienia (ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, ID_lokacji)
+    VALUES (ID_uzytkownika, sysdate(), data_przewidywana_zakonczenia_var, ID_lokacji_var);
 END //
 
 DELIMITER ;
 DELIMITER //
 
+/*CREATE PROCEDURE DodajFilmDoWypozyczenia(
+    IN ID_wypozyczenia INT,
+    IN ID_filmu INT,
+)
+BEGIN
+
+end // */
+
+DELIMITER ;
+DELIMITER //
 CREATE PROCEDURE ZakończWypożyczenie(
     IN ID_wypozyczenia INT,
-    IN data_zwrotu DATE
+    IN data_zwrotu DATE,
+    OUT Kara FLOAT
 )
 BEGIN
     -- Pobranie danych wypożyczenia
     DECLARE ID_filmu INT;
     DECLARE ID_lokacji INT;
     DECLARE Cena_dzienna FLOAT;
+    DECLARE Data_zakonczenia DATE;
 
-    SELECT FilmyID_Filmu, LokacjeID_Lokacji, Cena_dzienna
-    INTO ID_filmu, ID_lokacji, Cena_dzienna
+    SELECT Elementy_zamowien.ID_Filmu, Lokacje.ID_Lokacji, Cena_dzienna, Data_przewidywana_zakonczenia
+    INTO ID_filmu, ID_lokacji, Cena_dzienna, Data_zakonczenia
     FROM Zamowienia
-    JOIN Filmy ON Zamowienia.FilmyID_Filmu = Filmy.ID_Filmu
-    WHERE ID_wypozyczenia = ID_wypozyczenia;
+    JOIN Elementy_zamowien ON Zamowienia.ID_zamowienia = Elementy_zamowien.ID_zamowienia
+    JOIN Lokacje ON Zamowienia.ID_Lokacji = Lokacje.ID_Lokacji
+    WHERE Zamowienia.ID_zamowienia = ID_wypozyczenia;
 
     -- Aktualizacja daty zwrotu
     UPDATE Zamowienia
