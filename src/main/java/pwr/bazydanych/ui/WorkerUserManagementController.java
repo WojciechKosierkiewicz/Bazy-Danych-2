@@ -72,6 +72,6 @@ public class WorkerUserManagementController {
     }
 
     @FXML
-    public void wyporzczylaniawiev(Event event) {
+    public void wyporzczylaniawiev() {
     }
 }

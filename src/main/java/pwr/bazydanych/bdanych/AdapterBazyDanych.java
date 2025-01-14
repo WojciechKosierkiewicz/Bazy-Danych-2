@@ -2,7 +2,6 @@ package pwr.bazydanych.bdanych;
 
 import java.util.Vector;
 import java.sql.*;
-import javax.sql.*;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class AdapterBazyDanych {
@@ -14,7 +13,6 @@ public class AdapterBazyDanych {
     private Connection connection = null;
 
     private AdapterBazyDanych() {
-        Dotenv dotenv = Dotenv.load();
         connectionURL = Dotenv.load().get("CONNECTION_URL");
         user = Dotenv.load().get("USER");
         password = Dotenv.load().get("PASSWORD");
@@ -347,6 +345,10 @@ public class AdapterBazyDanych {
             System.out.println("Error fetching directors: " + e.getMessage());
         }
         return rezyserzy;
+    }
+
+    public Vector<Rezyser> getRezyserzyByName(String name){
+        return getRezyserzy();
     }
 }
 

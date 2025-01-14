@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="350.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.AddMovieController">
+<AnchorPane prefHeight="350.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.AddMovieController">
 
     <VBox alignment="CENTER" layoutX="100" layoutY="100" spacing="10" />
      <Button layoutX="26.0" layoutY="213.0" onAction="#onAddMovieButtonClick" text="Add Movie" />
@@ -11,9 +11,12 @@
      <TextField fx:id="tytulField" layoutX="14.0" layoutY="14.0" promptText="Tytuł" />
      <TextField fx:id="gatunekField" layoutX="14.0" layoutY="47.0" promptText="Gatunek" />
    <Button layoutX="171.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#szukajrezysera" text="SZUKAJ" />
-   <TableView layoutX="176.0" layoutY="44.0" prefHeight="296.0" prefWidth="206.0">
-     <columns>
-     </columns>
+   <TableView fx:id="tabela" layoutX="176.0" layoutY="44.0" prefHeight="296.0" prefWidth="313.0">
+       <columns>
+           <TableColumn fx:id="idColumn" prefWidth="48.0" text="ID" />
+           <TableColumn fx:id="imieColumn" prefWidth="78.0" text="Imię" />
+           <TableColumn fx:id="nazwiskoColumn" prefWidth="186.0" text="Nazwisko" />
+         </columns>
    </TableView>
-   <TextField layoutX="236.0" layoutY="14.0" prefHeight="25.0" prefWidth="136.0" promptText="Rezyser" />
+   <TextField fx:id="rezysername" layoutX="236.0" layoutY="14.0" prefHeight="25.0" prefWidth="136.0" promptText="Rezyser" />
 </AnchorPane>
