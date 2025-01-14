@@ -1,5 +1,6 @@
 package pwr.bazydanych.ui;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,6 +27,8 @@ public class AddMovieController
     private TextField rezysername;
     @javafx.fxml.FXML
     private TableView tabela;
+    @javafx.fxml.FXML
+    private Button powrot;
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -62,5 +65,10 @@ public class AddMovieController
         Vector<Rezyser> rezyserzy = AdapterBazyDanych.getInstance().getRezyserzyByName(rezysername.getText());
         tabela.getItems().clear();
         tabela.getItems().addAll(rezyserzy);
+    }
+
+    @javafx.fxml.FXML
+    public void powrot() {
+        util.switch_scene("WidokSzefa.fxml");
     }
 }

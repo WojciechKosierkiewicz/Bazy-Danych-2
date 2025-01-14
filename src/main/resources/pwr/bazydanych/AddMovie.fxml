@@ -19,4 +19,5 @@
          </columns>
    </TableView>
    <TextField fx:id="rezysername" layoutX="236.0" layoutY="14.0" prefHeight="25.0" prefWidth="136.0" promptText="Rezyser" />
+   <Button fx:id="powrot" layoutX="380.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#powrot" prefHeight="25.0" prefWidth="101.0" text="Powrót !" />
 </AnchorPane>

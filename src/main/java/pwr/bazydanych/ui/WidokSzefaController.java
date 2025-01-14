@@ -19,4 +19,9 @@ public class WidokSzefaController
     @javafx.fxml.FXML
     public void changeiloscpressed() {
     }
+
+    @javafx.fxml.FXML
+    public void addrezyserclicked() {
+        util.switch_scene("AddDirector.fxml");
+    }
 }

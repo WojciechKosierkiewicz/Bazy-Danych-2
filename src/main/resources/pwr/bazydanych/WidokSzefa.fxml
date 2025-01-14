@@ -3,10 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WidokSzefaController">
+<AnchorPane prefHeight="105.0" prefWidth="229.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WidokSzefaController">
    <children>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#dodajfilmpressed" text="Dodaj Film" />
-      <Button layoutX="94.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#usunfilmpressed" text="Usun film" />
-      <Button layoutX="171.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#changeiloscpressed" text="Zmien Ilosc filmow" />
+      <Button layoutX="121.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#usunfilmpressed" prefHeight="25.0" prefWidth="91.0" text="Usun film" />
+      <Button layoutX="97.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#changeiloscpressed" text="Zmien Ilosc filmow" />
+      <Button layoutX="14.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#addrezyserclicked" text="Dodaj Reżysera" />
    </children>
 </AnchorPane>

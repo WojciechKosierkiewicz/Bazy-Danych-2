@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="280.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.AddDirectorController">
+    <VBox alignment="CENTER" layoutX="100" layoutY="100" spacing="10">
+        <TextField fx:id="imieField" promptText="Imię" />
+        <TextField fx:id="nazwiskoField" promptText="Nazwisko" />
+        <Button onAction="#onAddDirectorButtonClick" text="Dodaj Rezysera" />
+    </VBox>
+   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#switchbackclicked" text="Wróć" />
+
+</AnchorPane>
