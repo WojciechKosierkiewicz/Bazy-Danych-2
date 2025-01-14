@@ -195,4 +195,16 @@ BEGIN
 END //
 
 DELIMITER ;
+DELIMITER //
+CREATE PROCEDURE ZatwierdzUzytkownika(
+    IN ID_uzytkownika INT
+)
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM Uzytkownicy WHERE Uzytkownicy.ID_uzytkownika = ID_uzytkownika) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Użytkownik nie istnieje.';
+    ELSE
+        UPDATE Uzytkownicy SET Uzytkownicy.Zatwierdzony = 1 WHERE Uzytkownicy.ID_uzytkownika = ID_uzytkownika;
+    END IF;
+end //
 

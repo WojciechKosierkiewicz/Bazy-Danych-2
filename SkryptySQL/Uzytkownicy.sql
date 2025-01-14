@@ -6,3 +6,4 @@ nrdowodu varchar(9),
 PRIMARY KEY (ID_uzytkownika));
 
 CREATE INDEX dowod_klienta_idx ON Uzytkownicy(nrdowodu) USING BTREE;
+

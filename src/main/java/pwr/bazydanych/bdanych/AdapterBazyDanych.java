@@ -98,15 +98,49 @@ public class AdapterBazyDanych {
     }
 
     public boolean isUserValidated(String id_user) {
-        // TODO
-        boolean validated = false;
+        String query = "SELECT zatwierdzony FROM Uzytkownicy WHERE ID_uzytkownika = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, id_user);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getBoolean("zatwierdzony");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching user: " + e.getMessage());
+        }
+        return false;
+    }
 
-        return validated;
+    public Vector<Uzytkownik> getInvalidated(){
+        String query = "SELECT ID_uzytkownika, imie, nazwisko, nrdowodu FROM Uzytkownicy WHERE zatwierdzony = 0";
+        Vector<Uzytkownik> users = new Vector<Uzytkownik>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Uzytkownik user = new Uzytkownik();
+                    user.imie = rs.getString("imie");
+                    user.nazwisko = rs.getString("nazwisko");
+                    user.id = rs.getInt("ID_uzytkownika");
+                    user.nrdowodu = rs.getString("nrdowodu");
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching users: " + e.getMessage());
+        }
+        return users;
     }
 
     public boolean validateUser(String id_user) {
-        // TODO
-        //dodatkowa kolumna w bazie
+        String procedureCall = "CALL ZatwierdzUzytkownika(?);";
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setString(1, id_user);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Błąd procedury: " + e.getMessage());
+            return false;
+        }
         return true;
     }
 
