@@ -87,7 +87,10 @@ public class AdapterBazyDanych {
 
     public Vector<Zamowienie> getZamowienia(String id_user){
         Vector<Zamowienie> zamowienia = new Vector<Zamowienie>();
-        String query = "SELECT ID_zamowienia, ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia FROM Zamowienia WHERE ID_uzytkownika = ? AND data_faktycznego_zakonczenia IS NULL";
+        String query = "SELECT z.ID_zamowienia, ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, SUM(cena_czastkowa)*DATEDIFF(SYSDATE(), data_rozpoczecia) as aktualnykoszt" +
+        " FROM Zamowienia z JOIN Elementy_zamowien e on e.ID_zamowienia = z.ID_zamowienia" +
+        " WHERE ID_uzytkownika = ? AND data_faktycznego_zakonczenia AND data_faktycznego_zakonczenia IS NULL" +
+        " GROUP BY z.ID_zamowienia";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, id_user);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -97,6 +100,7 @@ public class AdapterBazyDanych {
                     zamowienie.ID_Klienta = rs.getInt("ID_uzytkownika");
                     zamowienie.dataWypozyczenia = rs.getString("data_rozpoczecia");
                     zamowienie.dataZakonczenia = rs.getString("data_oczekiwanego_zakonczenia");
+                    zamowienie.koszt = rs.getDouble("aktualnykoszt");
                     zamowienia.add(zamowienie);
                 }
             }
