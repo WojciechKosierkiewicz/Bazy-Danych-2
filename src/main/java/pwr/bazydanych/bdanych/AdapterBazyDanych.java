@@ -40,7 +40,6 @@ public class AdapterBazyDanych {
     }
 
     public User getUser(String id_user) {
-        //TODO
         User user = null;
         String query = "SELECT ID_uzytkownika, imie, nazwisko, nrdowodu FROM Uzytkownicy WHERE ID_uzytkownika = ?";
 
@@ -99,15 +98,49 @@ public class AdapterBazyDanych {
     }
 
     public boolean isUserValidated(String id_user) {
-        // TODO
-        boolean validated = false;
+        String query = "SELECT zatwierdzony FROM Uzytkownicy WHERE ID_uzytkownika = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, id_user);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getBoolean("zatwierdzony");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching user: " + e.getMessage());
+        }
+        return false;
+    }
 
-        return validated;
+    public Vector<Uzytkownik> getInvalidated(){
+        String query = "SELECT ID_uzytkownika, imie, nazwisko, nrdowodu FROM Uzytkownicy WHERE zatwierdzony = 0";
+        Vector<Uzytkownik> users = new Vector<Uzytkownik>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Uzytkownik user = new Uzytkownik();
+                    user.imie = rs.getString("imie");
+                    user.nazwisko = rs.getString("nazwisko");
+                    user.id = rs.getInt("ID_uzytkownika");
+                    user.nrdowodu = rs.getString("nrdowodu");
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching users: " + e.getMessage());
+        }
+        return users;
     }
 
     public boolean validateUser(String id_user) {
-        // TODO
-        //dodatkowa kolumna w bazie
+        String procedureCall = "CALL ZatwierdzUzytkownika(?);";
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setString(1, id_user);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Błąd procedury: " + e.getMessage());
+            return false;
+        }
         return true;
     }
 
@@ -142,7 +175,22 @@ public class AdapterBazyDanych {
     }
 
     public boolean addDirector(String name, String surname) {
-
+        String procedureCall = "CALL DodajRezysera(?, ?);";
+        try(CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setString(1, name);
+            stmt.setString(2, surname);
+            stmt.execute();
+            System.out.println("Reżyser dodany pomyślnie.");
+            return true;
+        } catch (SQLException e) {
+            if ("45000".equals(e.getSQLState())) {
+                System.err.println("Błąd procedury: Reżyser już istnieje.");
+            } else {
+                System.err.println("Nieznany błąd SQL: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Nieznany błąd: " + e.getMessage());
+        }
         return true;
     }
 
@@ -169,7 +217,6 @@ public class AdapterBazyDanych {
     }
 
     public Vector<Film> getMoviesByDirector (String director){
-        //TODO
         Vector<Film> movies = new Vector<>();
         String query = "SELECT f.Tytul, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser WHERE r.Nazwisko = ? OR r.Imie = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -191,32 +238,43 @@ public class AdapterBazyDanych {
     }
 
     public Vector<Film> getMoviesByArg(String Director, String Title, String Genre){
+        System.out.println("Director: " + Director);
+        System.out.println("Title: " + Title);
+        System.out.println("Genre: " + Genre);
         Vector<Film> movies = new Vector<>();
-        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r ON f.ID_Rezyser = r.ID_Rezyser WHERE 1=1");
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Nazwisko, f.Gatunek " +
+                "FROM Filmy f " +
+                "JOIN Rezyser r ON f.ID_Rezyser = r.ID_Rezyser WHERE 1=1");
 
-        if (Director != null && !Director.isEmpty()) {
-            queryBuilder.append(" AND (r.Nazwisko = ? OR r.Imie = ?)");
+        if (Director != null && !Director.trim().isEmpty()) {
+            queryBuilder.append(" AND (r.Nazwisko LIKE ? OR r.Imie LIKE ?)");
         }
-        if (Title != null && !Title.isEmpty()) {
-            queryBuilder.append(" AND f.Tytul = ?");
+        if (Title != null && !Title.trim().isEmpty()) {
+            queryBuilder.append(" AND f.Tytul LIKE ?");
         }
-        if (Genre != null && !Genre.isEmpty()) {
-            queryBuilder.append(" AND f.Gatunek = ?");
+        if (Genre != null && !Genre.trim().isEmpty()) {
+            queryBuilder.append(" AND f.Gatunek LIKE ?");
         }
+
 
         try (PreparedStatement stmt = connection.prepareStatement(queryBuilder.toString())) {
             int index = 1;
+
+
             if (Director != null && !Director.isEmpty()) {
                 stmt.setString(index++, "%" + Director + "%");
                 stmt.setString(index++, "%" + Director + "%");
             }
-            if (Title != null && !Title.isEmpty()) {
+            if (Title != null && !Title.trim().isEmpty()) {
                 stmt.setString(index++, "%" + Title + "%");
             }
-            if (Genre != null && !Genre.isEmpty()) {
+            if (Genre != null && !Genre.trim().isEmpty()) {
                 stmt.setString(index++, "%" + Genre + "%");
             }
 
+            System.out.println("Zapytanie SQL: " + queryBuilder.toString());
+
+            // Wykonanie zapytania
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Film film = new Film();
@@ -229,6 +287,7 @@ public class AdapterBazyDanych {
         } catch (SQLException e) {
             System.out.println("Error fetching movies: " + e.getMessage());
         }
+
         return movies;
     }
 
@@ -248,7 +307,6 @@ public class AdapterBazyDanych {
     }
 
     public Vector<Lokacja> getLokacje(){
-        //TODO
         Lokacja lokacja = null;
         String query = "SELECT ID_lokacji, nazwa, adres, nr_telefonu FROM Lokacje";
 
@@ -268,6 +326,27 @@ public class AdapterBazyDanych {
             System.out.println("Error fetching locations: " + e.getMessage());
         }
         return lokacje;
+    }
+
+    public Vector<Rezyser> getRezyserzy(){
+        Rezyser rezyser = null;
+        String query = "SELECT ID_Rezyser, Imie, Nazwisko FROM Rezyser";
+
+        Vector<Rezyser> rezyserzy = new Vector<Rezyser>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    rezyser = new Rezyser();
+                    rezyser.id = rs.getInt("ID_Rezyser");
+                    rezyser.imie = rs.getString("Imie");
+                    rezyser.nazwisko = rs.getString("Nazwisko");
+                    rezyserzy.add(rezyser);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching directors: " + e.getMessage());
+        }
+        return rezyserzy;
     }
 }
 

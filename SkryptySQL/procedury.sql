@@ -1,9 +1,8 @@
-DELIMITER //
-
+DELIMITER // //
 CREATE PROCEDURE DodajFilm(
     IN TytulFilm VARCHAR(255),
     IN GatunekFilm VARCHAR(255),
-    IN CenaDziennaFilm FLOAT(3, 2),
+    IN CenaDziennaFilm FLOAT(5,2),
     IN RezyserID INT,
     IN LokacjaID INT,
     IN IloscFilmow INT
@@ -195,4 +194,31 @@ BEGIN
 END //
 
 DELIMITER ;
+DELIMITER //
+CREATE PROCEDURE ZatwierdzUzytkownika(
+    IN ID_uzytkownika INT
+)
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM Uzytkownicy WHERE Uzytkownicy.ID_uzytkownika = ID_uzytkownika) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Użytkownik nie istnieje.';
+    ELSE
+        UPDATE Uzytkownicy SET Uzytkownicy.Zatwierdzony = 1 WHERE Uzytkownicy.ID_uzytkownika = ID_uzytkownika;
+    END IF;
+end //
+DELIMITER ;
+DELIMITER //
+CREATE PROCEDURE dodajRezysera(
+    IN Imie VARCHAR(100),
+    IN Nazwisko VARCHAR(100)
+)
+BEGIN
+    IF EXISTS (SELECT 1 FROM Rezyser WHERE Rezyser.Imie = Imie AND Rezyser.Nazwisko = Nazwisko) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Reżyser już istnieje.';
+    ELSE
+        INSERT INTO Rezyser (Imie, Nazwisko)
+        VALUES (Imie, Nazwisko);
+    END IF;
+END //
 
