@@ -56,7 +56,6 @@ public class AddMovieController
             SimpleDialog simpleDialog = new SimpleDialog("Wszystkie pola musza byc wypelnione");
             return;
         }
-        //TODO
         AdapterBazyDanych.getInstance().addMovie(tytul, gatunek, cenna, selectedRezyser.getId());
     }
 

@@ -5,6 +5,15 @@ public class Film {
     public String rezyserNazwisko;
     public String rezyserImie;
     public String gatunek;
+    public int Ilosc;
+
+    public int getIlosc() {
+        return Ilosc;
+    }
+
+    public void setIlosc(int ilosc) {
+        Ilosc = ilosc;
+    }
 
     public String getGatunek() {
         return gatunek;
