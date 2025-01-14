@@ -3,9 +3,7 @@ CREATE PROCEDURE DodajFilm(
     IN TytulFilm VARCHAR(255),
     IN GatunekFilm VARCHAR(255),
     IN CenaDziennaFilm FLOAT(5,2),
-    IN RezyserID INT,
-    IN LokacjaID INT,
-    IN IloscFilmow INT
+    IN RezyserID INT
 )
 BEGIN
     DECLARE NowyID_Filmu INT;
@@ -16,12 +14,6 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM Rezyser WHERE ID_Rezyser = RezyserID) THEN
         SIGNAL SQLSTATE '45001'
             SET MESSAGE_TEXT = 'Reżyser nie istnieje.';
-    END IF;
-
-    -- Sprawdzenie, czy lokacja istnieje
-    IF NOT EXISTS (SELECT 1 FROM Lokacje WHERE ID_Lokacji = LokacjaID) THEN
-        SIGNAL SQLSTATE '45002'
-            SET MESSAGE_TEXT = 'Lokacja nie istnieje.';
     END IF;
 
     -- Sprawdzenie poprawności ceny dziennej
@@ -36,14 +28,9 @@ BEGIN
         VALUES (TytulFilm, GatunekFilm, CenaDziennaFilm, RezyserID);
         SET NowyID_Filmu = LAST_INSERT_ID();
     ELSE
-        SELECT ID_Filmu INTO NowyID_Filmu
-        FROM Filmy
-        WHERE Tytul = TytulFilm;
+        SIGNAL SQLSTATE '45002'
+            SET MESSAGE_TEXT = 'Film o podanym tytule już istnieje.';
     END IF;
-
-    -- Dodanie dostępności filmu
-    INSERT INTO DostepnoscFilmu (ID_Filmu, ID_Lokacji, Ilosc)
-    VALUES (NowyID_Filmu, LokacjaID, IloscFilmow);
 
     COMMIT;
 END //

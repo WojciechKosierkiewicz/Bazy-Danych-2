@@ -57,7 +57,7 @@ public class AddMovieController
             return;
         }
         //TODO
-        System.out.println("Dodaje film: " + tytul + " " + selectedRezyser.getId() + " " + gatunek + " " + cenna);
+        AdapterBazyDanych.getInstance().addMovie(tytul, gatunek, cenna, selectedRezyser.getId());
     }
 
     @javafx.fxml.FXML

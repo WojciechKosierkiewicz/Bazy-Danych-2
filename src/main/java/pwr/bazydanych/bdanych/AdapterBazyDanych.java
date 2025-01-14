@@ -142,16 +142,14 @@ public class AdapterBazyDanych {
         return true;
     }
 
-    public boolean addMovie(String title, String genre, Double CenaDziennaFilm, int director_id, int lokacja_id, int ilosc) {
-        String procedureCall = "CALL DodajFilm(?, ?, ?, ?, ?, ?);";
+    public boolean addMovie(String title, String genre, Double CenaDziennaFilm, int director_id) {
+        String procedureCall = "CALL DodajFilm(?, ?, ?, ?);";
 
         try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
             stmt.setString(1, title);
             stmt.setString(2, genre);
             stmt.setDouble(3, CenaDziennaFilm);
             stmt.setInt(4, director_id);
-            stmt.setInt(5, lokacja_id);
-            stmt.setInt(6, ilosc);
 
             stmt.execute();
             System.out.println("Film dodany pomyślnie.");
@@ -160,7 +158,7 @@ public class AdapterBazyDanych {
             if ("45001".equals(e.getSQLState())) {
                 System.err.println("Błąd procedury: Reżyser nie istnieje.");
             } else if ("45002".equals(e.getSQLState())) {
-                System.err.println("Błąd procedury: Lokacja nie istnieje.");
+                System.err.println("Błąd procedury: Film już istnieje.");
             } else if ("45003".equals(e.getSQLState())) {
                 System.err.println("Błąd procedury: Cena dzienna musi być większa od zera.");
             } else {
