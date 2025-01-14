@@ -89,8 +89,8 @@ public class AdapterBazyDanych {
         Vector<Zamowienie> zamowienia = new Vector<Zamowienie>();
         String query = "SELECT z.ID_zamowienia, ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, SUM(cena_czastkowa)*DATEDIFF(SYSDATE(), data_rozpoczecia) as aktualnykoszt" +
         " FROM Zamowienia z JOIN Elementy_zamowien e on e.ID_zamowienia = z.ID_zamowienia" +
-        " WHERE ID_uzytkownika = ? AND data_faktycznego_zakonczenia AND data_faktycznego_zakonczenia IS NULL" +
-        " GROUP BY z.ID_zamowienia, ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia";
+        " WHERE ID_uzytkownika = ? AND data_faktycznego_zakonczenia IS NULL" +
+        " GROUP BY z.ID_zamowienia";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, id_user);
             try (ResultSet rs = stmt.executeQuery()) {
