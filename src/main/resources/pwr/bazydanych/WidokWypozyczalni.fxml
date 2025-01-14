@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WidokWypozyczalniController">
+   <children>
+      <ChoiceBox fx:id="lokacja" layoutX="14.0" layoutY="14.0" prefWidth="150.0" onAction="#onChoiceBoxSelectionChanged"/>
+   </children>
+</AnchorPane>

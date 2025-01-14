@@ -73,5 +73,6 @@ public class WorkerUserManagementController {
 
     @FXML
     public void wyporzczylaniawiev() {
+        util.switch_scene("WidokWypozyczalni.fxml");
     }
 }
