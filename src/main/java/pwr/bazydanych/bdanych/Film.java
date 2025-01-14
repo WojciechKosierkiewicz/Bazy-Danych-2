@@ -2,16 +2,23 @@ package pwr.bazydanych.bdanych;
 
 public class Film {
     public String tytul;
-    public Rezyser rezyser;
+    public String rezyserNazwisko;
+    public String rezyserImie;
     public String gatunek;
 
     public String getGatunek() {
         return gatunek;
     }
 
-    public Rezyser getRezyser() {
-        return rezyser;
+    public String getRezyserImie() {
+        return rezyserImie;
     }
+
+    public String getRezyserNazwisko() {
+        return rezyserNazwisko;
+    }
+
+
 
     public String getTytul() {
         return tytul;
@@ -22,7 +29,11 @@ public class Film {
     }
 
     public void setRezyser(Rezyser rezyser) {
-        this.rezyser = rezyser;
+        this.rezyserNazwisko = rezyser;
+    }
+
+    public void setRezyserImie(String rezyserImie) {
+        this.rezyserImie = rezyserImie;
     }
 
     public void setTytul(String tytul) {

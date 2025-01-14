@@ -194,15 +194,17 @@ public class AdapterBazyDanych {
 
     public Vector<Film> getMoviesMatching (String expression){
         Vector<Film> movies = new Vector<>();
-        String query = "SELECT f.Tytul, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser WHERE f.Tytul LIKE ?";
+        String query = "SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser WHERE f.Tytul LIKE ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, "%" + expression + "%");
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Film film = new Film();
+                    Rezyser rezyser = new Rezyser();
                     film.tytul = rs.getString("Tytul");
-                    film.rezyser = rs.getString("Nazwisko");
+                    film.rezyserNazwisko = rs.getString("Nazwisko");
+                    film.rezyserImie = rs.getString("Imie");
                     film.gatunek = rs.getString("Gatunek");
                     movies.add(film);
                 }
@@ -224,7 +226,8 @@ public class AdapterBazyDanych {
                 while (rs.next()) {
                     Film film = new Film();
                     film.tytul = rs.getString("Tytul");
-                    film.rezyser = rs.getString("Nazwisko");
+                    film.rezyserNazwisko = rs.getString("Nazwisko");
+                    film.rezyserImie = rs.getString("Imie");
                     film.gatunek = rs.getString("Gatunek");
                     movies.add(film);
                 }
@@ -240,7 +243,7 @@ public class AdapterBazyDanych {
         System.out.println("Title: " + Title);
         System.out.println("Genre: " + Genre);
         Vector<Film> movies = new Vector<>();
-        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Nazwisko, f.Gatunek " +
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek " +
                 "FROM Filmy f " +
                 "JOIN Rezyser r ON f.ID_Rezyser = r.ID_Rezyser WHERE 1=1");
 
@@ -276,8 +279,10 @@ public class AdapterBazyDanych {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Film film = new Film();
+                    Rezyser rezyser = new Rezyser();
                     film.tytul = rs.getString("Tytul");
-                    film.rezyser = rs.getString("Nazwisko");
+                    film.rezyserNazwisko = rs.getString("Nazwisko");
+                    film.rezyserImie = rs.getString("Imie");
                     film.gatunek = rs.getString("Gatunek");
                     movies.add(film);
                 }
