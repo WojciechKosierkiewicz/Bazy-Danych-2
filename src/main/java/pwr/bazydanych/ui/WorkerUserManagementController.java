@@ -80,7 +80,7 @@ public class WorkerUserManagementController {
     @FXML
     public void returnmovie(Event event) {
         WynajetyFilm selectedFilm = tabelawynajetych.getSelectionModel().getSelectedItem();
-        AdapterBazyDanych.getInstance().zwracanieFilmu(selectedFilm);
+        AdapterBazyDanych.getInstance().returnMovie(selectedFilm);
         AfterUserFoundOperations();
     }
 }

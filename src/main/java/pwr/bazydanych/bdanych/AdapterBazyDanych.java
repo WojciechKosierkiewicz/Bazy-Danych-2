@@ -85,7 +85,7 @@ public class AdapterBazyDanych {
         return wynajete;
     }
 
-    public boolean returnMovie(String id_user, String title) {
+    public boolean returnMovie() {
         // TODO
         return true;
     }

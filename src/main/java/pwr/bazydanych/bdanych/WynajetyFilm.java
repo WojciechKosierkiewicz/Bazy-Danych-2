@@ -4,6 +4,7 @@ public class WynajetyFilm {
     public double aktualnykoszt;
     public String dataWypozyczenia;
     public String Tytul;
+    public int ID_Zamowienia;
 
     public String getTytul() {
         return Tytul;
