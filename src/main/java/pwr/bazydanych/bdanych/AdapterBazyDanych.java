@@ -127,7 +127,17 @@ public class AdapterBazyDanych {
         }
 
         try (PreparedStatement stmt = connection.prepareStatement(queryBuilder.toString())) {
-            stmt.setInt(1, id_lokacji);
+            int index = 1;
+
+            stmt.setInt(index++, id_lokacji);
+            if (rezyser != null && !rezyser.isEmpty()) {
+                stmt.setString(index++, "%" + rezyser + "%");
+                stmt.setString(index++, "%" + rezyser + "%");
+            }
+            if (tytul != null && !tytul.trim().isEmpty()) {
+                stmt.setString(index++, "%" + tytul + "%");
+            }
+
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Film film = new Film();
