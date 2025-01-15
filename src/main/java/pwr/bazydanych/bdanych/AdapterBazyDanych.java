@@ -112,14 +112,21 @@ public class AdapterBazyDanych {
         return wynajete;
     }
 
-    public Vector<Film> getMoviesInLocation(int id_lokacji){
+    public Vector<Film> getMoviesInLocation(int id_lokacji, String tytul, String rezyser){
         Vector<Film> movies = new Vector<Film>();
-        String query = "SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc, f.Cena_dzienna FROM Filmy f " +
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc, f.Cena_dzienna FROM Filmy f " +
                 "JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser " +
                 "JOIN DostepnoscFilmu d on f.ID_filmu = d.ID_filmu " +
-                "WHERE d.ID_Lokacji = ? AND d.Ilosc > 0";
+                "WHERE d.ID_Lokacji = ? AND d.Ilosc > 0");
 
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        if (rezyser != null && !rezyser.isEmpty()) {
+            queryBuilder.append(" AND (r.Nazwisko LIKE ? OR r.Imie LIKE ?)");
+        }
+        if (tytul != null && !tytul.isEmpty()) {
+            queryBuilder.append(" AND f.Tytul LIKE ?");
+        }
+
+        try (PreparedStatement stmt = connection.prepareStatement(queryBuilder.toString())) {
             stmt.setInt(1, id_lokacji);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
