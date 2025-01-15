@@ -38,6 +38,14 @@ public class Film {
         return rezyserNazwisko;
     }
 
+    public double getCena() {
+        return cena;
+    }
+
+    public String getRezyser() {
+        return rezyserImie + " " + rezyserNazwisko;
+    }
+
 
 
     public String getTytul() {

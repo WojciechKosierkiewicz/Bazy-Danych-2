@@ -32,4 +32,9 @@ public class HelloController {
             }
         }
     }
+
+    @FXML
+    public void registeriser() {
+        util.switch_scene("rejestracja.fxml");
+    }
 }

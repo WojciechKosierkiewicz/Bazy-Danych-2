@@ -10,4 +10,5 @@
     </padding>
    <TextField fx:id="nameField" focusTraversable="false" promptText="Podaj Numer Konta" />
     <Button onAction="#onHelloButtonClick" text="Log in" />
+   <Button mnemonicParsing="false" onMouseClicked="#registeriser" text="Rejestruj nowego użytkownika" />
 </VBox>

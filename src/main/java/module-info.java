@@ -4,6 +4,7 @@ module pwr.bazydanych {
     requires jdk.compiler;
     requires java.sql;
     requires java.dotenv;
+    requires java.desktop;
 
 
     opens pwr.bazydanych to javafx.fxml;

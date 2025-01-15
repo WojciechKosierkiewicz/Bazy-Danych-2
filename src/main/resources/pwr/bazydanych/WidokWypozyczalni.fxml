@@ -3,9 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.WidokWypozyczalniController">
    <children>
-      <ChoiceBox fx:id="lokacja" layoutX="14.0" layoutY="14.0" prefWidth="150.0" onAction="#onChoiceBoxSelectionChanged"/>
+      <ChoiceBox fx:id="lokacja" layoutX="14.0" layoutY="14.0" onAction="#onChoiceBoxSelectionChanged" prefWidth="150.0" />
+      <TableView fx:id="tabelafilm" layoutX="15.0" layoutY="93.0" prefHeight="300.0" prefWidth="570.0">
+        <columns>
+           <TableColumn fx:id="tytulcolumn" prefWidth="441.0" text="Tytul" />
+           <TableColumn fx:id="cenacolumn" prefWidth="58.0" text="Cena" />
+           <TableColumn fx:id="ilosccolumn" prefWidth="70.0" text="Ilosc" />
+        </columns>
+      </TableView>
+      <TextField layoutX="15.0" layoutY="46.0" promptText="Tytuł" />
+      <TextField fx:id="iloscfield" layoutX="500.0" layoutY="46.0" prefHeight="25.0" prefWidth="78.0" />
+      <Button layoutX="415.0" layoutY="46.0" mnemonicParsing="false" text="Zmien ilosc" />
+      <Button layoutX="236.0" layoutY="46.0" mnemonicParsing="false" text="Zmien cene" />
+      <TextField fx:id="cenafield" layoutX="330.0" layoutY="46.0" prefHeight="25.0" prefWidth="66.0" />
    </children>
 </AnchorPane>

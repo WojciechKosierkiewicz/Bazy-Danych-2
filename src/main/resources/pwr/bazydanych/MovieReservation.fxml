@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.MovieReservationController">
+<AnchorPane prefHeight="400.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.MovieReservationController">
    <children>
       <DatePicker fx:id="startdate" layoutX="14.0" layoutY="14.0" promptText="Data rozpoczecia" />
       <DatePicker fx:id="enddate" layoutX="199.0" layoutY="14.0" promptText="Data Zakonczenia" />
@@ -11,10 +11,23 @@
       <TextField fx:id="movietitle" layoutX="14.0" layoutY="48.0" onAction="#onEnter" prefHeight="25.0" prefWidth="174.0" promptText="Tytuł filmu" />
       <TableView fx:id="tabelafilmow" layoutX="14.0" layoutY="111.0" prefHeight="275.0" prefWidth="570.0">
         <columns>
-
+           <TableColumn fx:id="tytulColumn" prefWidth="196.0" text="Tytul" />
+           <TableColumn fx:id="rezyserColumn" prefWidth="154.0" text="Rezyser" />
+           <TableColumn fx:id="gatunekColumn" prefWidth="116.0" text="Gatunek" />
+           <TableColumn fx:id="cenaColumn" prefWidth="103.0" text="Cena" />
         </columns>
       </TableView>
       <TextField fx:id="rezyser" layoutX="199.0" layoutY="48.0" prefHeight="25.0" prefWidth="174.0" promptText="Rezyser" />
       <ChoiceBox fx:id="lokacja" layoutX="389.0" layoutY="48.0" prefHeight="25.0" prefWidth="194.0" />
+      <Button layoutX="20.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#wyszukaj" text="Wyszukaj" />
+      <TableView fx:id="AktualneZamowi" layoutX="593.0" layoutY="111.0" prefHeight="275.0" prefWidth="340.0">
+        <columns>
+           <TableColumn fx:id="TutulRezerw" prefWidth="257.0" text="Tytul" />
+           <TableColumn fx:id="CenaRezerw" prefWidth="82.0" text="Cena" />
+        </columns>
+      </TableView>
+      <Label layoutX="599.0" layoutY="93.0" text="Aktualne zamowienie" />
+      <Button layoutX="101.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#addtoorder" text="Dodaj do zamówienia" />
+      <Button layoutX="885.0" layoutY="14.0" mnemonicParsing="false" text="Wroc" />
    </children>
 </AnchorPane>

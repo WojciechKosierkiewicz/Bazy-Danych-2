@@ -29,14 +29,20 @@ public class UserViewController {
     private TableColumn kosztColumn;
     @FXML
     private TableColumn dataWypozyczeniaColumn;
+    @FXML
+    private TableColumn dataZwrotuColumn;
 
     @FXML
     public void initialize() {
         AdapterBazyDanych adapter = AdapterBazyDanych.getInstance();
         Vector<Zamowienie> zamowieniaVec = adapter.getZamowienia(SharedState.username);
         ObservableList<Zamowienie> zamowieniaObservable = FXCollections.observableArrayList(zamowieniaVec);
+        for (Zamowienie z : zamowieniaVec) {
+            System.out.println(z.dataZakonczenia);
+        }
         Id_Zamowienia.setCellValueFactory(new PropertyValueFactory<>("ID_Zamowienia"));
         dataWypozyczeniaColumn.setCellValueFactory(new PropertyValueFactory<>("dataWypozyczenia"));
+        dataZwrotuColumn.setCellValueFactory(new PropertyValueFactory<>("dataZakonczenia"));
         kosztColumn.setCellValueFactory(new PropertyValueFactory<>("koszt"));
         zamowienia.setItems(zamowieniaObservable);
         zamowienia.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> onZamowienieSelected((Zamowienie) newValue));
@@ -54,5 +60,10 @@ public class UserViewController {
     @FXML
     public void browsemoviescliked() {
         util.switch_scene("MovieBrowser.fxml");
+    }
+
+    @FXML
+    public void reservermovie() {
+        util.switch_scene("MovieReservation.fxml");
     }
 }

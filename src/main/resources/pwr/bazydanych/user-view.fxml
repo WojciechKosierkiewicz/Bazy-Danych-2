@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.UserViewController">
    <children>
-      <Button layoutX="14.0" layoutY="39.0" mnemonicParsing="false" text="Zarezerwuj film" />
+      <Button layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onMouseClicked="#reservermovie" text="Zarezerwuj film" />
       <Button layoutX="131.0" layoutY="39.0" mnemonicParsing="false" onMouseClicked="#browsemoviescliked" text="Przeglądaj filmy" />
        <TableView fx:id="zamowienia" layoutX="252.0" layoutY="33.0" prefHeight="336.0" prefWidth="354.0">
            <columns>
