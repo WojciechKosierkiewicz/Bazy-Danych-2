@@ -1,12 +1,22 @@
 package pwr.bazydanych.bdanych;
 
 public class Film {
+    public int id;
     public String tytul;
     public String rezyserNazwisko;
     public String rezyserImie;
     public String gatunek;
     public int Ilosc;
     public double cena;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getIlosc() {
         return Ilosc;

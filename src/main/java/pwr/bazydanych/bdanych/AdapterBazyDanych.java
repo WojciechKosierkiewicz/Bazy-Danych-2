@@ -465,6 +465,40 @@ public class AdapterBazyDanych {
         } catch (SQLException e) {
             System.out.println("Error fetching movies: " + e.getMessage());
         }
+        return movies;
+    }
+
+    public Vector<Film> getLocationsMovies(int idLokacji) {
+        Vector<Film> movies = new Vector<>();
+        String query = "SELECT f.ID_Filmu, f.Tytul, df.Ilosc, f.Cena_dzienna " +
+                "FROM Filmy f " +
+                "LEFT JOIN DostepnoscFilmu df ON f.ID_Filmu = df.ID_Filmu " +
+                "WHERE ID_Lokacji = ? " +
+                "UNION ALL " +
+                "SELECT f.ID_Filmu, f.Tytul, 0, f.Cena_dzienna " +
+                "FROM Filmy f " +
+                "JOIN DostepnoscFilmu df ON f.ID_Filmu = df.ID_Filmu " +
+                "WHERE ID_Lokacji != ? AND f.ID_Filmu NOT IN (SELECT ID_Filmu FROM DostepnoscFilmu WHERE ID_Lokacji = ?) " +
+                "GROUP BY f.ID_Filmu";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idLokacji);
+            stmt.setInt(2, idLokacji);
+            stmt.setInt(3, idLokacji);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Film film = new Film();
+                    film.id = rs.getInt("ID_Filmu");
+                    film.tytul = rs.getString("Tytul");
+                    film.Ilosc = rs.getInt("Ilosc");
+                    film.cena = rs.getDouble("Cena_dzienna");
+                    movies.add(film);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching movies: " + e.getMessage());
+        }
 
         return movies;
     }
