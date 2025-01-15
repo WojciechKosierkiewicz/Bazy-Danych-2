@@ -10,34 +10,45 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import pwr.bazydanych.SharedState;
 import pwr.bazydanych.bdanych.AdapterBazyDanych;
 import pwr.bazydanych.bdanych.WynajetyFilm;
+import pwr.bazydanych.bdanych.Zamowienie;
 
 import java.util.Vector;
 
 public class UserViewController {
     @FXML
-    private TableView<WynajetyFilm> HistoriaWynajmu;
+    private TableColumn cenaColumn;
     @FXML
-    private TableColumn<WynajetyFilm, String> tytulColumn;
+    private TableColumn tytulColumn;
     @FXML
-    private TableColumn<WynajetyFilm, String> dataWynajmuColumn;
+    private TableView zamowienia;
     @FXML
-    private TableColumn<WynajetyFilm, Double> kosztColumn;
+    private TableColumn Id_Zamowienia;
+    @FXML
+    private TableView filmy;
+    @FXML
+    private TableColumn kosztColumn;
+    @FXML
+    private TableColumn dataWypozyczeniaColumn;
+
     @FXML
     public void initialize() {
         AdapterBazyDanych adapter = AdapterBazyDanych.getInstance();
-        System.out.println("SharedState.username: " + SharedState.username);
-        Vector<WynajetyFilm> wynajete = adapter.getFilmyWynajeteBy(SharedState.username);
-        System.out.println("Number of rented movies: " + wynajete.size());
-        for (WynajetyFilm film : wynajete) {
-            System.out.println("Movie: " + film.Tytul + ", Cost: " + film.aktualnykoszt + ", Date: " + film.dataWypozyczenia);
-        }
-        ObservableList<WynajetyFilm> wynajetelist = FXCollections.observableArrayList(wynajete);
+        Vector<Zamowienie> zamowieniaVec = adapter.getZamowienia(SharedState.username);
+        ObservableList<Zamowienie> zamowieniaObservable = FXCollections.observableArrayList(zamowieniaVec);
+        Id_Zamowienia.setCellValueFactory(new PropertyValueFactory<>("ID_Zamowienia"));
+        dataWypozyczeniaColumn.setCellValueFactory(new PropertyValueFactory<>("dataWypozyczenia"));
+        kosztColumn.setCellValueFactory(new PropertyValueFactory<>("koszt"));
+        zamowienia.setItems(zamowieniaObservable);
+        zamowienia.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> onZamowienieSelected((Zamowienie) newValue));
+    }
+
+    @Deprecated
+    private void onZamowienieSelected(Zamowienie selectedZamowienie){
+        Vector<WynajetyFilm> filmyVec = AdapterBazyDanych.getInstance().getWynajeteFilmy(selectedZamowienie.getID_Zamowienia());
+        ObservableList<WynajetyFilm> filmyObservable = FXCollections.observableArrayList(filmyVec);
         tytulColumn.setCellValueFactory(new PropertyValueFactory<>("Tytul"));
-        dataWynajmuColumn.setCellValueFactory(new PropertyValueFactory<>("dataWypozyczenia"));
-        kosztColumn.setCellValueFactory(new PropertyValueFactory<>("aktualnykoszt"));
-
-        HistoriaWynajmu.setItems(wynajetelist);
-
+        cenaColumn.setCellValueFactory(new PropertyValueFactory<>("aktualnykoszt"));
+        filmy.setItems(filmyObservable);
     }
 
     @FXML

@@ -29,4 +29,8 @@ public class WynajetyFilm {
     public void setAktualnykoszt(double aktualnykoszt) {
         this.aktualnykoszt = aktualnykoszt;
     }
+
+    public int getID_Zamowienia() {
+        return ID_Zamowienia;
+    }
 }

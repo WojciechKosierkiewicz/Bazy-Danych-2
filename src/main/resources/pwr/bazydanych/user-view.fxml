@@ -3,16 +3,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.UserViewController">
+<AnchorPane prefHeight="400.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.UserViewController">
    <children>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Zarezerwuj film" />
-      <TableView fx:id="HistoriaWynajmu" layoutX="272.0" layoutY="14.0" prefHeight="200.0" prefWidth="388.0">
-          <columns>
-              <TableColumn fx:id="tytulColumn" prefWidth="187.0" text="Tytuł" />
-              <TableColumn fx:id="dataWynajmuColumn" prefWidth="112.0" text="Data wynajmu" />
-              <TableColumn fx:id="kosztColumn" prefWidth="88.0" text="Koszt" />
-          </columns>
-      </TableView>
-      <Button layoutX="121.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#browsemoviescliked" text="Przeglądaj filmy" />
+      <Button layoutX="14.0" layoutY="39.0" mnemonicParsing="false" text="Zarezerwuj film" />
+      <Button layoutX="131.0" layoutY="39.0" mnemonicParsing="false" onMouseClicked="#browsemoviescliked" text="Przeglądaj filmy" />
+       <TableView fx:id="zamowienia" layoutX="252.0" layoutY="33.0" prefHeight="336.0" prefWidth="354.0">
+           <columns>
+               <TableColumn fx:id="kosztColumn" text="Koszt" />
+               <TableColumn fx:id="dataWypozyczeniaColumn" prefWidth="129.0" text="Data Wypozyczenia" />
+               <TableColumn fx:id="dataZwrotuColumn" prefWidth="94.0" text="Data Zwrotu" />
+               <TableColumn fx:id="Id_Zamowienia" prefWidth="50.0" text="ID" />
+           </columns>
+       </TableView>
+       <TableView fx:id="filmy" layoutX="636.0" layoutY="33.0" prefHeight="336.0" prefWidth="257.0">
+           <columns>
+               <TableColumn fx:id="tytulColumn" text="Tytul" />
+               <TableColumn fx:id="cenaColumn" text="Cena" />
+           </columns>
+       </TableView>
    </children>
 </AnchorPane>
