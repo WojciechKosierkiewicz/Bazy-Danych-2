@@ -87,6 +87,7 @@ public class AdapterBazyDanych {
         return zamowienia;
     }
 
+
     public Vector<WynajetyFilm> getWynajeteFilmy(int id_zamowienia){
         Vector<WynajetyFilm> wynajete = new Vector<WynajetyFilm>();
 
@@ -109,6 +110,32 @@ public class AdapterBazyDanych {
             System.out.println("Error fetching movies: " + e.getMessage());
         }
         return wynajete;
+    }
+
+    public Vector<Film> getMoviesInLocation(int id_lokacji){
+        Vector<Film> movies = new Vector<Film>();
+        String query = "SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc, f.Cena_dzienna FROM Filmy f " +
+                "JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser " +
+                "JOIN DostepnoscFilmu d on f.ID_filmu = d.ID_filmu " +
+                "WHERE d.ID_Lokacji = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, id_lokacji);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Film film = new Film();
+                    film.tytul = rs.getString("Tytul");
+                    film.rezyserNazwisko = rs.getString("Nazwisko");
+                    film.rezyserImie = rs.getString("Imie");
+                    film.gatunek = rs.getString("Gatunek");
+                    film.Ilosc = rs.getInt("Ilosc");
+                    movies.add(film);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching movies: " + e.getMessage());
+        }
+        return movies;
     }
 
     public boolean returnMovie() {
