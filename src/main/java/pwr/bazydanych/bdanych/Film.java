@@ -6,6 +6,7 @@ public class Film {
     public String rezyserImie;
     public String gatunek;
     public int Ilosc;
+    public double cena;
 
     public int getIlosc() {
         return Ilosc;

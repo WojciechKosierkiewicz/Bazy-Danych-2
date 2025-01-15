@@ -129,6 +129,7 @@ public class AdapterBazyDanych {
                     film.rezyserImie = rs.getString("Imie");
                     film.gatunek = rs.getString("Gatunek");
                     film.Ilosc = rs.getInt("Ilosc");
+                    film.cena = rs.getDouble("Cena_dzienna");
                     movies.add(film);
                 }
             }
