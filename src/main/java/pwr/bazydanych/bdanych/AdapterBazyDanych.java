@@ -117,7 +117,7 @@ public class AdapterBazyDanych {
         String query = "SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc, f.Cena_dzienna FROM Filmy f " +
                 "JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser " +
                 "JOIN DostepnoscFilmu d on f.ID_filmu = d.ID_filmu " +
-                "WHERE d.ID_Lokacji = ?";
+                "WHERE d.ID_Lokacji = ? AND d.Ilosc > 0";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, id_lokacji);
