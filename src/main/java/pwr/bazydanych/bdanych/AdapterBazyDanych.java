@@ -479,6 +479,101 @@ public class AdapterBazyDanych {
         return getRezyserzy();
     }
 
+    public boolean rentMovie(Vector<Film> films , int id_lokacji, String id_uzytkownika, String data_oczekiwanego_zakonczenia, Vector<Film> failedMovies) {
+        String usersReservationstToClose = "SELECT ID_rezerwacji FROM Rezerwacje WHERE ID_uzytkownika = ? AND ID_Filmu = ? AND SYSDATE() BETWEEN data_rozpoczecia AND date_zakonczenia";
+        String createOrderProcedure = "CALL DodajWypozyczenie(?, ?, ?);";
+        String addElementProcedure = "CALL DodajFilmDoWypozyczenia(?, ?, ?);";
+        String deleteOrderQuery = "DELETE FROM Zamowienia WHERE ID_zamowienia = ?;";
+        int orderId = -1;
+        Vector<Integer> ReservationsToClose = new Vector<>();
+
+        try (Connection conn = DriverManager.getConnection(connectionURL, user, password)) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement createOrderStmt = conn.prepareStatement(createOrderProcedure, Statement.RETURN_GENERATED_KEYS)) {
+                createOrderStmt.setString(1, id_uzytkownika);
+                createOrderStmt.setInt(2, id_lokacji);
+                createOrderStmt.setString(3, data_oczekiwanego_zakonczenia);
+                createOrderStmt.executeUpdate();
+
+                try (ResultSet rs = createOrderStmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        orderId = rs.getInt(1);
+                    }
+                }
+
+                if (orderId == -1) {
+                    conn.rollback();
+                    conn.setAutoCommit(true);
+                    return false;
+                }
+
+                boolean moviesAdded = true;
+                try(PreparedStatement stmt = conn.prepareStatement(usersReservationstToClose)){
+                    for (Film film : films) {
+                        stmt.setString(1, id_uzytkownika);
+                        stmt.setInt(2, film.id);
+                        try (ResultSet rs = stmt.executeQuery()) {
+                            while (rs.next()) {
+                                ReservationsToClose.add(rs.getInt("ID_rezerwacji"));
+                            }
+                        }
+                    }
+                    for(Integer reservation : ReservationsToClose){
+                        try (CallableStatement closeReservationstmt = conn.prepareCall("CALL ZakonczRezerwacje(?)")) {
+                            closeReservationstmt.setInt(1, reservation);
+                            closeReservationstmt.execute();
+                        } catch (SQLException e) {
+                            System.err.println("Error closing reservation: " + e.getMessage());
+                            conn.rollback();
+                            conn.setAutoCommit(true);
+                            return false;
+                        }
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Error fetching reservations: " + e.getMessage());
+                    conn.rollback();
+                    conn.setAutoCommit(true);
+                    return false;
+                }
+
+                for(Film film: films){
+                    try (CallableStatement addElementStmt = conn.prepareCall(addElementProcedure)) {
+                        addElementStmt.setInt(1, orderId);
+                        addElementStmt.setInt(2, film.id);
+                        addElementStmt.setInt(3, 1);
+                        addElementStmt.execute();
+                    } catch (SQLException e) {
+                        System.err.println("Error adding movie to order: " + e.getMessage());
+                        moviesAdded = false;
+                        failedMovies.add(film);
+                    }
+                }
+
+                if (!moviesAdded) {
+                    try (PreparedStatement deleteOrderStmt = conn.prepareStatement(deleteOrderQuery)) {
+                        deleteOrderStmt.setInt(1, orderId);
+                        deleteOrderStmt.executeUpdate();
+                    }
+                    conn.rollback();
+                    return false;
+                }
+
+                conn.commit();
+                conn.setAutoCommit(true);
+                return true;
+            } catch (SQLException e) {
+                conn.rollback();
+                System.err.println("Transaction failed: " + e.getMessage());
+                conn.setAutoCommit(true);
+                return false;
+            }
+        } catch (SQLException e) {
+            System.err.println("Connection error: " + e.getMessage());
+            return false;
+        }
+    }
+
     public Vector<Film> getAvailableMovies(String Title, String Director, int ID_Lokacji){
         Vector<Film> movies = new Vector<>();
         StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc " +
