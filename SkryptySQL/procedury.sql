@@ -227,7 +227,7 @@ BEGIN
 
     SELECT DATEDIFF(Data_zakonczenia_var, sysdate()) INTO roznica_dat_var;
     IF roznica_dat_var < 0 THEN
-        SET Kara_out = ABS(roznica_dat_var) * Cena_dzienna_var;
+        SET Kara_out = ABS(roznica_dat_var) * Cena_dzienna_var *2;
     ELSE
         SET Kara_out = 0;
     END IF;

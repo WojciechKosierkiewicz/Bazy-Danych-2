@@ -89,9 +89,10 @@ public class AdapterBazyDanych {
         return true;
     }
 
+
     public Vector<Zamowienie> getZamowienia(String id_user){
         Vector<Zamowienie> zamowienia = new Vector<Zamowienie>();
-        String query = "SELECT z.ID_zamowienia, ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, SUM(cena_czastkowa)*DATEDIFF(SYSDATE(), data_rozpoczecia) as aktualnykoszt" +
+        String query = "SELECT z.ID_zamowienia, ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, SUM(e.cena_czastkowa)*DATEDIFF(SYSDATE(), data_rozpoczecia) as aktualnykoszt" +
         " FROM Zamowienia z JOIN Elementy_zamowien e on e.ID_zamowienia = z.ID_zamowienia" +
         " WHERE ID_uzytkownika = ? AND data_faktycznego_zakonczenia IS NULL" +
         " GROUP BY z.ID_zamowienia";
@@ -645,6 +646,18 @@ public class AdapterBazyDanych {
             stmt.setString(3, nrdowodu);
             stmt.execute();
             id = stmt.getString(4);
+        } catch (SQLException e) {
+            System.err.println("Błąd procedury: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean returnOrder(int id_zamowienia){
+        String procedureCall = "CALL ZakonczWypozyczenie(?);";
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setInt(1, id_zamowienia);
+            stmt.execute();
         } catch (SQLException e) {
             System.err.println("Błąd procedury: " + e.getMessage());
             return false;
