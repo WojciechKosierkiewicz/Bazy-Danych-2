@@ -274,3 +274,19 @@ BEGIN
     END IF;
 END //
 
+DELIMITER ;
+DELIMITER //
+CREATE PROCEDURE usunFilm(
+    IN ID_filmu_var INT
+)
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM Filmy WHERE Filmy.ID_filmu = ID_filmu_var) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Film o podanym ID nie istnieje.';
+    ELSE
+        UPDATE DostepnoscFilmu
+        SET Ilosc = 0
+        WHERE ID_Filmu = ID_filmu_var;
+    END IF;
+END //
+

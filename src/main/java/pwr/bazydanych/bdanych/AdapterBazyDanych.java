@@ -456,7 +456,26 @@ public class AdapterBazyDanych {
         return rezyserzy;
     }
 
+
+
     public Vector<Rezyser> getRezyserzyByName(String name){
+        Vector<Rezyser> rezyserzy = new Vector<Rezyser>();
+        String query = "SELECT ID_Rezyser, Imie, Nazwisko FROM Rezyser WHERE Imie LIKE ? OR Nazwisko LIKE ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, '%' + name + '%');
+            stmt.setString(2, '%' + name + '%');
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Rezyser rezyser = new Rezyser();
+                    rezyser.id = rs.getInt("ID_Rezyser");
+                    rezyser.imie = rs.getString("Imie");
+                    rezyser.nazwisko = rs.getString("Nazwisko");
+                    rezyserzy.add(rezyser);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching directors: " + e.getMessage());
+        }
         return getRezyserzy();
     }
 
