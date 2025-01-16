@@ -8,6 +8,7 @@ import pwr.bazydanych.bdanych.AdapterBazyDanych;
 import pwr.bazydanych.bdanych.Film;
 import pwr.bazydanych.bdanych.Lokacja;
 
+import java.util.Formattable;
 import java.util.Vector;
 
 public class MovieReservationController
@@ -78,6 +79,7 @@ public class MovieReservationController
             SimpleDialog simpleDialog = new SimpleDialog("Nie wybrano filmu");
             return;
         }
+
 
         if (startdate.getValue() == null || enddate.getValue() == null) {
             SimpleDialog simpleDialog = new SimpleDialog("Nie wybrano daty");
