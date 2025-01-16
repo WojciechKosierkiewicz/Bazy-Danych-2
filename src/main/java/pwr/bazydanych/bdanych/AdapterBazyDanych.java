@@ -584,7 +584,7 @@ public class AdapterBazyDanych {
                 "JOIN Rezyser r ON f.ID_Rezyser = r.ID_Rezyser" +
                 "JOIN DostepnoscFilmu d on f.ID_filmu = d.ID_filmu" +
                 "JOIN Lokacje l on l.ID_Lokacji = d.ID_Lokacji" +
-                "WHERE Lokacje.ID_Lokacji = ?");
+                "WHERE Lokacje.ID_Lokacji = ? AND d.Ilosc > 0");
 
         if (Director != null && !Director.trim().isEmpty()) {
             queryBuilder.append(" AND (r.Nazwisko LIKE ? OR r.Imie LIKE ?)");
