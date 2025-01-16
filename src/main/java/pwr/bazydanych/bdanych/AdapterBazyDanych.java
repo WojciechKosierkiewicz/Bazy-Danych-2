@@ -638,7 +638,7 @@ public class AdapterBazyDanych {
     }
 
     public boolean rejestruj(String imie, String nazwisko, String nrdowodu, String id_user) {
-        if(imie == null || nazwisko == null || nrdowodu == null || id_user == null){
+        if(imie == null || nazwisko == null || nrdowodu == null){
             return false;
         }
 
