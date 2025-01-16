@@ -62,6 +62,33 @@ public class AdapterBazyDanych {
         return user;
     }
 
+    public boolean changePrice(int id_filmu, double cena){
+        String procedureCall = "CALL AktualizujCene(?, ?);";
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setInt(1, id_filmu);
+            stmt.setDouble(2, cena);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Błąd procedury: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean changeMovieAvailability(int id_filmu, int id_lokacji, int ilosc){
+        String procedureCall = "CALL AktualizujDostepnosc(?, ?, ?);";
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setInt(1, id_filmu);
+            stmt.setInt(2, id_lokacji);
+            stmt.setInt(3, ilosc);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Błąd procedury: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
     public Vector<Zamowienie> getZamowienia(String id_user){
         Vector<Zamowienie> zamowienia = new Vector<Zamowienie>();
         String query = "SELECT z.ID_zamowienia, ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, SUM(cena_czastkowa)*DATEDIFF(SYSDATE(), data_rozpoczecia) as aktualnykoszt" +
@@ -118,7 +145,7 @@ public class AdapterBazyDanych {
                 "FROM Rezerwacje r " +
                 "JOIN Filmy f on r.ID_filmu = f.ID_filmu " +
                 "JOIN Lokacje l on r.ID_lokacji = l.ID_lokacji " +
-                "WHERE r.ID_uzytkownika = ?";
+                "WHERE r.ID_uzytkownika = ? AND r.date_zakonczenia > SYSDATE()";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, user);
             try (ResultSet rs = stmt.executeQuery()) {

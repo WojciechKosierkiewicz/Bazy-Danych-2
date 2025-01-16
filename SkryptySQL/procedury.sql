@@ -201,8 +201,8 @@ END //
 
 DELIMITER ;
 DELIMITER //
-
-CREATE PROCEDURE AktualizujDostępnosc(
+drop procedure if exists AktualizujDostępnosc;
+CREATE PROCEDURE AktualizujDostepnosc(
     IN ID_filmu_var INT,
     IN ID_lokacji_var INT,
     IN nowa_ilosc_var INT
