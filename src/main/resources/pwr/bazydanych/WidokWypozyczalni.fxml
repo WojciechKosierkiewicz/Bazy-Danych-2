@@ -15,8 +15,8 @@
       </TableView>
       <TextField layoutX="15.0" layoutY="46.0" promptText="Tytuł" />
       <TextField fx:id="iloscfield" layoutX="500.0" layoutY="46.0" prefHeight="25.0" prefWidth="78.0" />
-      <Button layoutX="415.0" layoutY="46.0" mnemonicParsing="false" text="Zmien ilosc" />
-      <Button layoutX="236.0" layoutY="46.0" mnemonicParsing="false" text="Zmien cene" />
+      <Button layoutX="415.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#zmienilosc" text="Zmien ilosc" />
+      <Button layoutX="236.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#zmiencene" text="Zmien cene" />
       <TextField fx:id="cenafield" layoutX="330.0" layoutY="46.0" prefHeight="25.0" prefWidth="66.0" />
    </children>
 </AnchorPane>

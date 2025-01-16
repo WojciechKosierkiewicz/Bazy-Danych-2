@@ -6,7 +6,7 @@
 <AnchorPane prefHeight="350.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.AddMovieController">
 
     <VBox alignment="CENTER" layoutX="100" layoutY="100" spacing="10" />
-     <Button layoutX="26.0" layoutY="213.0" onAction="#onAddMovieButtonClick" text="Add Movie" />
+     <Button layoutX="26.0" layoutY="213.0" onAction="#onAddMovieButtonClick" text="Dodaj film" />
    <TextField fx:id="cena" layoutX="14.0" layoutY="81.0" promptText="Cena" />
      <TextField fx:id="tytulField" layoutX="14.0" layoutY="14.0" promptText="Tytuł" />
      <TextField fx:id="gatunekField" layoutX="14.0" layoutY="47.0" promptText="Gatunek" />

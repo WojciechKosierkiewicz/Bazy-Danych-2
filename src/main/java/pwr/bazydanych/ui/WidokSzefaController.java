@@ -18,6 +18,7 @@ public class WidokSzefaController
 
     @javafx.fxml.FXML
     public void changeiloscpressed() {
+        util.switch_scene("WidokWypozyczalni.fxml");
     }
 
     @javafx.fxml.FXML

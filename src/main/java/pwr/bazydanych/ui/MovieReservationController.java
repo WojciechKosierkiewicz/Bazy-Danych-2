@@ -3,6 +3,8 @@ package pwr.bazydanych.ui;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import org.w3c.dom.events.Event;
+import pwr.bazydanych.SharedState;
+import pwr.bazydanych.bdanych.AdapterBazyDanych;
 import pwr.bazydanych.bdanych.Film;
 import pwr.bazydanych.bdanych.Lokacja;
 
@@ -67,6 +69,42 @@ public class MovieReservationController
 
     @javafx.fxml.FXML
     public void wynajmijclicked() {
+        if(!AdapterBazyDanych.getInstance().isUserValidated(SharedState.username)){
+            SimpleDialog simpleDialog = new SimpleDialog("Twoje konto jeszcze nie zostało zweryfikowane poproś pracownika o weryfikacje konta");
+            return;
+        }
+
+        if (filmywzamowieniu.size() == 0) {
+            SimpleDialog simpleDialog = new SimpleDialog("Nie wybrano filmu");
+            return;
+        }
+
+        if (startdate.getValue() == null || enddate.getValue() == null) {
+            SimpleDialog simpleDialog = new SimpleDialog("Nie wybrano daty");
+            return;
+        }
+
+        if (startdate.getValue().isAfter(enddate.getValue())) {
+            SimpleDialog simpleDialog = new SimpleDialog("Data początkowa jest po dacie końcowej");
+            return;
+        }
+
+        Lokacja selectedLocation = (Lokacja) lokacja.getSelectionModel().getSelectedItem();
+        if(selectedLocation == null){
+            SimpleDialog simpleDialog = new SimpleDialog("Nie wybrano lokacji");
+            return;
+        }
+
+        System.out.println(Integer.parseInt(SharedState.username));
+        if (AdapterBazyDanych.getInstance().addReservation(filmywzamowieniu, selectedLocation.getId(),Integer.parseInt( SharedState.username), startdate.getValue().toString(), enddate.getValue().toString())){
+            SimpleDialog simpleDialog = new SimpleDialog("Rezerwacja zakończona sukcesem");
+            filmywzamowieniu.clear();
+            ObservableList<Film> filmywzamowieniuobs = javafx.collections.FXCollections.observableArrayList(filmywzamowieniu);
+            AktualneZamowi.setItems(filmywzamowieniuobs);
+        }
+        else{
+            SimpleDialog simpleDialog = new SimpleDialog("Rezerwacja nie powiodła się");
+        }
     }
 
     @javafx.fxml.FXML

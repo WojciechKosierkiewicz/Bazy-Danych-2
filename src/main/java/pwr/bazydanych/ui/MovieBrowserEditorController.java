@@ -63,4 +63,9 @@ public class MovieBrowserEditorController
             tableView.getItems().remove(film);
         }
     }
+
+    @javafx.fxml.FXML
+    public void wrocclicked() {
+        util.switch_scene("WidokSzefa.fxml");
+    }
 }

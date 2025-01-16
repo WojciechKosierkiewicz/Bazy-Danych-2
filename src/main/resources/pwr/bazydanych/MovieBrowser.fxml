@@ -16,7 +16,7 @@
     </top>
 
     <center>
-        <TableView fx:id="tableView" prefHeight="440.0" prefWidth="721.0">
+        <TableView fx:id="tableView" prefHeight="736.0" prefWidth="1200.0">
             <columns>
                 <TableColumn fx:id="tytulColumn" prefWidth="854.0" text="Tytuł" />
                 <TableColumn fx:id="rezyserColumn" prefWidth="205.0" text="Reżyser" />

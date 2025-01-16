@@ -12,6 +12,7 @@
          <ChoiceBox fx:id="gatunek" prefWidth="150.0" />
             <Button onAction="#onAddButtonClick" onMouseClicked="#szukajclicked" text="Szukaj" />
          <Button mnemonicParsing="false" onMouseClicked="#usunfilmclicked" text="Usun" />
+         <Button mnemonicParsing="false" onMouseClicked="#wrocclicked" text="Wróć" />
         </HBox>
     </top>
 

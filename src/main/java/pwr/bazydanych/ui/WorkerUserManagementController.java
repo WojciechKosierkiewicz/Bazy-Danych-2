@@ -50,6 +50,7 @@ public class WorkerUserManagementController {
         zamowienia.setVisible(false);
         filmy.setVisible(false);
         UserVerificated.setVisible(false);
+        UserVerificated.selectedProperty().addListener((observable, oldValue, newValue) -> onUserVerificatedChanged(newValue));
     }
 
 
@@ -66,11 +67,27 @@ public class WorkerUserManagementController {
         System.out.println(user.id + " " + zamowieniavec.size());
         ObservableList<Zamowienie> zamowienialist = FXCollections.observableArrayList(zamowieniavec);
         Id_Zamowienia.setCellValueFactory(new PropertyValueFactory<>("ID_Zamowienia"));
-        dataWypozyczeniaColumn.setCellValueFactory(new PropertyValueFactory<>("dataZakonczenia"));
-        dataZwrotuColumn.setCellValueFactory(new PropertyValueFactory<>("dataZwrotu"));
+        dataWypozyczeniaColumn.setCellValueFactory(new PropertyValueFactory<>("dataWypozyczenia"));
+        dataZwrotuColumn.setCellValueFactory(new PropertyValueFactory<>("dataZakonczenia"));
         kosztColumn.setCellValueFactory(new PropertyValueFactory<>("koszt"));
         zamowienia.setItems(zamowienialist);
         zamowienia.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> onZamowienieSelected((Zamowienie) newValue));
+        if(AdapterBazyDanych.getInstance().isUserValidated(user.id)){
+            UserVerificated.setSelected(true);
+        }
+        else {
+            UserVerificated.setSelected(false);
+        }
+
+    }
+
+    private void onUserVerificatedChanged(boolean newValue) {
+        if(newValue){
+            AdapterBazyDanych.getInstance().validateUser(user.id);
+        }
+        else {
+            AdapterBazyDanych.getInstance().invalidateUser(user.id);
+        }
     }
 
     private void AfterUserNotFoundOperations() {

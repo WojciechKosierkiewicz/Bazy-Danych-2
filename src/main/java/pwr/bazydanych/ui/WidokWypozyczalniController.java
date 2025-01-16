@@ -58,4 +58,12 @@ public class WidokWypozyczalniController
     @javafx.fxml.FXML
     public void onChoiceBoxSelectionChanged() {
     }
+
+    @javafx.fxml.FXML
+    public void zmiencene() {
+    }
+
+    @javafx.fxml.FXML
+    public void zmienilosc() {
+    }
 }
