@@ -51,7 +51,7 @@ public class AddMovieController
             SimpleDialog simpleDialog = new SimpleDialog("Wybierz rezysera");
             return;
         }
-        double cenna;
+        Double cenna;
         try {
             cenna = Double.parseDouble(cena.getText());
         }
@@ -60,7 +60,7 @@ public class AddMovieController
             return;
         }
 
-        if (tytul.isEmpty() ||  gatunek.isEmpty() || cenna == null) {
+        if (tytul.isEmpty() ||  gatunek.isEmpty()){ {
             SimpleDialog simpleDialog = new SimpleDialog("Wszystkie pola musza byc wypelnione");
             return;
         }
@@ -72,14 +72,14 @@ public class AddMovieController
     }
 
     @javafx.fxml.FXML
-    public void szukajrezysera() {
+    public void szukajrezysera(){
         Vector<Rezyser> rezyserzy = AdapterBazyDanych.getInstance().getRezyserzyByName(rezysername.getText());
         tabela.getItems().clear();
         tabela.getItems().addAll(rezyserzy);
     }
 
     @javafx.fxml.FXML
-    public void powrot() {
+    public void powrot(){
         util.switch_scene("WidokSzefa.fxml");
     }
 }

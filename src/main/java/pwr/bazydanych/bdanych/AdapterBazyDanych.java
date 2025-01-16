@@ -366,7 +366,7 @@ public class AdapterBazyDanych {
 
     public Vector<Film> getMoviesByArg(String Director, String Title, String Genre){
         Vector<Film> movies = new Vector<>();
-        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek " +
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.ID_filmu, f.Tytul, r.Imie, r.Nazwisko, f.Gatunek " +
                 "FROM Filmy f " +
                 "JOIN Rezyser r ON f.ID_Rezyser = r.ID_Rezyser WHERE 1=1");
 
@@ -403,6 +403,7 @@ public class AdapterBazyDanych {
                 while (rs.next()) {
                     Film film = new Film();
                     Rezyser rezyser = new Rezyser();
+                    film.id = rs.getInt("ID_Filmu");
                     film.tytul = rs.getString("Tytul");
                     film.rezyserNazwisko = rs.getString("Nazwisko");
                     film.rezyserImie = rs.getString("Imie");
