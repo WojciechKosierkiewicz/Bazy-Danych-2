@@ -6,6 +6,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import pwr.bazydanych.SharedState;
+import pwr.bazydanych.bdanych.AdapterBazyDanych;
 import pwr.bazydanych.bdanych.Film;
 import pwr.bazydanych.bdanych.Lokacja;
 
@@ -52,6 +54,37 @@ public class CreateOrderWorkerController
     }
     @javafx.fxml.FXML
     public void rent_clicked() {
+        if( wybrane_filmy.size() == 0){
+            SimpleDialog simpleDialog = new SimpleDialog("Wybierz filmy");
+            return;
+        }
+        if(datazakonczeniaui.getValue() == null){
+            SimpleDialog simpleDialog = new SimpleDialog("Wybierz date zakonczenia");
+            return;
+        }
+        Lokacja lokacjaa = (Lokacja) lokacja.getSelectionModel().getSelectedItem();
+        Vector<Film> niudane_filmy = new Vector<>();
+        System.out.println("Wypozyczam filmy");
+        System.out.println(wybrane_filmy.size());
+        System.out.println(lokacjaa.getId());
+        System.out.println(SharedState.username);
+        System.out.println(datazakonczeniaui.getValue().toString());
+
+        if (AdapterBazyDanych.getInstance().rentMovie(wybrane_filmy,lokacjaa.getId(), SharedState.username, datazakonczeniaui.getValue().toString(),niudane_filmy)) {
+            SimpleDialog simpleDialog = new SimpleDialog("Wypozyczono filmy");
+            return;
+        }
+            String filmynieudane = "";
+            if(niudane_filmy.size()==1){
+               SimpleDialog simpleDialog = new SimpleDialog("Nie udalo sie wypozyczyc filmu : " + niudane_filmy.get(0).tytul);
+               return;
+            }
+            for (int i = 0; i < niudane_filmy.size(); i++) {
+                filmynieudane += niudane_filmy.get(i).tytul + " ";
+            }
+            filmynieudane += ".";
+            SimpleDialog simpleDialog = new SimpleDialog("Nie udalo sie wypozyczyc filmow : " + filmynieudane);
+            return;
     }
 
     @javafx.fxml.FXML
