@@ -138,6 +138,18 @@ public class AdapterBazyDanych {
         return rezerwacje;
     }
 
+    public boolean closeReservation(int id_rezerwacji){
+        String procedureCall = "CALL ZakonczRezerwacje(?);";
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setInt(1, id_rezerwacji);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Błąd procedury: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
 
     public Vector<Film> getMoviesInLocation(int id_lokacji, String tytul, String rezyser){
         Vector<Film> movies = new Vector<Film>();
