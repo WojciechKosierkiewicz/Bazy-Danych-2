@@ -635,5 +635,19 @@ public class AdapterBazyDanych {
 
         return movies;
     }
+
+    public boolean rejestruj(String imie, String nazwisko, String nrdowodu){
+        String procedureCall = "CALL DodajUzytkownika(?, ?, ?);";
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setString(1, imie);
+            stmt.setString(2, nazwisko);
+            stmt.setString(3, nrdowodu);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Błąd procedury: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
 }
 
