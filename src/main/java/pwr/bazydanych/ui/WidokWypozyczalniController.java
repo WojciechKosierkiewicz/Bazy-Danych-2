@@ -72,11 +72,16 @@ public class WidokWypozyczalniController
         if(wybrane == null){
             SimpleDialog simpleDialog = new SimpleDialog("Wybierz film");
         }
-        if (AdapterBazyDanych.getInstance().changePrice(wybrane.getId(), Double.parseDouble(cenafield.getText()))) {
-            SimpleDialog simpleDialog = new SimpleDialog("Cena zmieniona");
+        try {
+            if (AdapterBazyDanych.getInstance().changePrice(wybrane.getId(), Double.parseDouble(cenafield.getText()))) {
+                SimpleDialog simpleDialog = new SimpleDialog("Cena zmieniona");
+            }
+            else {
+                SimpleDialog simpleDialog = new SimpleDialog("Nie mozna zmienic ceny");
+            }
         }
-        else {
-            SimpleDialog simpleDialog = new SimpleDialog("Nie mozna zmienic ceny");
+        catch (Exception e){
+            SimpleDialog simpleDialog = new SimpleDialog(e.getMessage());
         }
         refresh_table();
     }
@@ -92,11 +97,16 @@ public class WidokWypozyczalniController
         if(wybrane == null){
             SimpleDialog simpleDialog = new SimpleDialog("Wybierz film");
         }
-        if (AdapterBazyDanych.getInstance().changeMovieAvailability(wybrane.getId(),wybranaLokacja.getId(), Integer.parseInt(iloscfield.getText()))) {
-            SimpleDialog simpleDialog = new SimpleDialog("Ilosc zmieniona");
+        try {
+            if (AdapterBazyDanych.getInstance().changeMovieAvailability(wybrane.getId(),wybranaLokacja.getId(), Integer.parseInt(iloscfield.getText()))) {
+                SimpleDialog simpleDialog = new SimpleDialog("Ilosc zmieniona");
+            }
+            else {
+                SimpleDialog simpleDialog = new SimpleDialog("Nie mozna zmienic ilosci");
+            }
         }
-        else {
-            SimpleDialog simpleDialog = new SimpleDialog("Nie mozna zmienic ilosci");
+        catch (Exception e){
+            SimpleDialog simpleDialog = new SimpleDialog(e.getMessage());
         }
         refresh_table();
     }
