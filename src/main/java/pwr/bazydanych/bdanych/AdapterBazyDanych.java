@@ -114,7 +114,7 @@ public class AdapterBazyDanych {
 
     public Vector<Film> getMoviesInLocation(int id_lokacji, String tytul, String rezyser){
         Vector<Film> movies = new Vector<Film>();
-        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc, f.Cena_dzienna FROM Filmy f " +
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.ID_filmu, f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc, f.Cena_dzienna FROM Filmy f " +
                 "JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser " +
                 "JOIN DostepnoscFilmu d on f.ID_filmu = d.ID_filmu " +
                 "WHERE d.ID_Lokacji = ? AND d.Ilosc > 0");
@@ -141,6 +141,7 @@ public class AdapterBazyDanych {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Film film = new Film();
+                    film.id = rs.getInt("ID_Filmu");
                     film.tytul = rs.getString("Tytul");
                     film.rezyserNazwisko = rs.getString("Nazwisko");
                     film.rezyserImie = rs.getString("Imie");
@@ -180,8 +181,6 @@ public class AdapterBazyDanych {
                 stmt.setInt(3, film.id);
                 stmt.setString(4, data_rozpoczecia);
                 stmt.setString(5, data_oczekiwanego_zakonczenia);
-                System.out.println("Zapytanie SQL: " + procedureCall);
-                System.out.println("ID_filmu: " + film.id + " ID_lokacji: " + lokalizacja + " ID_uzytkownika: " + id_uzytkownika + " data_rozpoczecia: " + data_rozpoczecia + " data_oczekiwanego_zakonczenia: " + data_oczekiwanego_zakonczenia);
                 stmt.execute();
             } catch (SQLException e) {
                 System.err.println("Błąd procedury: " + e.getMessage());
