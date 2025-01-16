@@ -136,16 +136,25 @@ public class WorkerUserManagementController {
 
     @FXML
     public void returnmovie() {
-        //TODO
         Zamowienie selectedZamowienie = (Zamowienie) zamowienia.getSelectionModel().getSelectedItem();
         if (selectedZamowienie == null) {
             SimpleDialog err = new SimpleDialog("Wybierz zamowienie");
             return;
         }
-        //removing from table
-        ObservableList<WynajetyFilm> allItems = zamowienia.getItems();
-        allItems.remove(selectedZamowienie);
-        zamowienia.setItems(allItems);
+        double kara = -1;
+        if (AdapterBazyDanych.getInstance().returnOrder(selectedZamowienie.ID_Zamowienia,kara)) {
+            if(kara==0){
+                SimpleDialog err = new SimpleDialog("Filmy zwrócone");
+            }
+            else {
+                SimpleDialog err = new SimpleDialog("Filmy zwrócone, kara: " + kara);
+            }
+            ObservableList<WynajetyFilm> allItems = zamowienia.getItems();
+            allItems.remove(selectedZamowienie);
+            zamowienia.setItems(allItems);
+        } else {
+            SimpleDialog err = new SimpleDialog("Nie udało się zwrócić filmów");
+        }
     }
 
     @FXML
