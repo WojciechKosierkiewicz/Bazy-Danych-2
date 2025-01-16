@@ -4,6 +4,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import pwr.bazydanych.bdanych.AdapterBazyDanych;
 import pwr.bazydanych.bdanych.Film;
 
 import java.util.Vector;
@@ -60,7 +61,12 @@ public class MovieBrowserEditorController
         Film film = (Film) tableView.getSelectionModel().getSelectedItem();
         if (film != null) {
             System.out.println("Usuwam film: " + film.tytul);
-            tableView.getItems().remove(film);
+            if (AdapterBazyDanych.getInstance().deleteMovie(film.id)) {
+                tableView.getItems().remove(film);
+                SimpleDialog simpleDialog = new SimpleDialog("Film usuniety");
+            } else {
+                SimpleDialog simpleDialog = new SimpleDialog("Nie mozna usunac filmu");
+            }
         }
     }
 
