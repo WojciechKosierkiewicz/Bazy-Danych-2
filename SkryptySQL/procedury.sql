@@ -246,6 +246,21 @@ BEGIN
 end //
 DELIMITER ;
 DELIMITER //
+
+CREATE PROCEDURE DezatwierdzUzytkownika(
+    IN ID_uzytkownika_var INT
+)
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM Uzytkownicy WHERE Uzytkownicy.ID_uzytkownika = ID_uzytkownika_var) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Użytkownik nie istnieje.';
+    ELSE
+        UPDATE Uzytkownicy SET Zatwierdzony = 0 WHERE ID_uzytkownika = ID_uzytkownika_var;
+    END IF;
+end //
+
+DELIMITER ;
+DELIMITER //
 CREATE PROCEDURE dodajRezysera(
     IN Imie VARCHAR(100),
     IN Nazwisko VARCHAR(100)

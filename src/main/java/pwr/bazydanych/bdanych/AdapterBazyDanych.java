@@ -189,26 +189,6 @@ public class AdapterBazyDanych {
         return false;
     }
 
-    public Vector<Uzytkownik> getInvalidated(){
-        String query = "SELECT ID_uzytkownika, imie, nazwisko, nrdowodu FROM Uzytkownicy WHERE zatwierdzony = 0";
-        Vector<Uzytkownik> users = new Vector<Uzytkownik>();
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Uzytkownik user = new Uzytkownik();
-                    user.imie = rs.getString("imie");
-                    user.nazwisko = rs.getString("nazwisko");
-                    user.id = rs.getInt("ID_uzytkownika");
-                    user.nrdowodu = rs.getString("nrdowodu");
-                    users.add(user);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error fetching users: " + e.getMessage());
-        }
-        return users;
-    }
-
     public boolean validateUser(String id_user) {
         String procedureCall = "CALL ZatwierdzUzytkownika(?);";
         try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
