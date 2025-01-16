@@ -47,9 +47,11 @@ public class RejestracjaController
             SimpleDialog simpleDialog = new SimpleDialog("Podaj numer dowodu");
             return;
         }
-        if (AdapterBazyDanych.getInstance().rejestruj(imietxt.getText(), nazwiskotxt.getText(), idnumber.getText())){
-            SimpleDialog simpleDialog = new SimpleDialog("Zarejestrowano");
-       }
+        String userid = "";
+        if (AdapterBazyDanych.getInstance().rejestruj(imietxt.getText(), nazwiskotxt.getText(), idnumber.getText(),userid)){
+            SimpleDialog simpleDialog = new SimpleDialog("Zarejestrowano ! twoj login to : \"" + userid + "\"");
+            util.switch_scene("hello-view.fxml");
+        }
         else {
             SimpleDialog simpleDialog = new SimpleDialog("Nie mozna zarejestrowac");
         }
