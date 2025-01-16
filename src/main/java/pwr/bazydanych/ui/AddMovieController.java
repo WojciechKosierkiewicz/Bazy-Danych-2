@@ -51,7 +51,15 @@ public class AddMovieController
             SimpleDialog simpleDialog = new SimpleDialog("Wybierz rezysera");
             return;
         }
-        Double cenna = Double.parseDouble(cena.getText());
+        double cenna;
+        try {
+            cenna = Double.parseDouble(cena.getText());
+        }
+        catch (Exception e){
+            SimpleDialog simpleDialog = new SimpleDialog("Zle podana cena użyj kropki");
+            return;
+        }
+
         if (tytul.isEmpty() ||  gatunek.isEmpty() || cenna == null) {
             SimpleDialog simpleDialog = new SimpleDialog("Wszystkie pola musza byc wypelnione");
             return;
