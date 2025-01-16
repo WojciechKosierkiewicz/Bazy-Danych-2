@@ -481,7 +481,7 @@ public class AdapterBazyDanych {
 
     public boolean rentMovie(Vector<Film> films , int id_lokacji, String id_uzytkownika, String data_oczekiwanego_zakonczenia, Vector<Film> failedMovies) {
         String usersReservationstToClose = "SELECT ID_rezerwacji FROM Rezerwacje WHERE ID_uzytkownika = ? AND ID_Filmu = ? AND SYSDATE() BETWEEN data_rozpoczecia AND date_zakonczenia";
-        String createOrderProcedure = "CALL DodajWypozyczenie(?, ?, ?);";
+        String createOrderProcedure = "CALL DodajWypozyczenie(?, ?, ?, ?);";
         String addElementProcedure = "CALL DodajFilmDoWypozyczenia(?, ?, ?);";
         String deleteOrderQuery = "DELETE FROM Zamowienia WHERE ID_zamowienia = ?;";
         int orderId = -1;
