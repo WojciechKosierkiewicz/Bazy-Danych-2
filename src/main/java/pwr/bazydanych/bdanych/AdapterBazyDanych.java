@@ -636,13 +636,15 @@ public class AdapterBazyDanych {
         return movies;
     }
 
-    public boolean rejestruj(String imie, String nazwisko, String nrdowodu){
-        String procedureCall = "CALL DodajUzytkownika(?, ?, ?);";
+    public boolean rejestruj(String imie, String nazwisko, String nrdowodu, String id_user) {
+        String procedureCall = "CALL DodajUzytkownika(?, ?, ?, ?);";
+        String id = null;
         try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
             stmt.setString(1, imie);
             stmt.setString(2, nazwisko);
             stmt.setString(3, nrdowodu);
             stmt.execute();
+            id = stmt.getString(4);
         } catch (SQLException e) {
             System.err.println("Błąd procedury: " + e.getMessage());
             return false;
