@@ -114,7 +114,7 @@ public class AdapterBazyDanych {
 
     public Vector<Film> getMoviesInLocation(int id_lokacji, String tytul, String rezyser){
         Vector<Film> movies = new Vector<Film>();
-        StringBuilder queryBuilder = new StringBuilder("SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc, f.Cena_dzienna FROM Filmy f " +
+        StringBuilder queryBuilder = new StringBuilder("SELECT f.ID_filmu, f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc, f.Cena_dzienna FROM Filmy f " +
                 "JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser " +
                 "JOIN DostepnoscFilmu d on f.ID_filmu = d.ID_filmu " +
                 "WHERE d.ID_Lokacji = ? AND d.Ilosc > 0");
@@ -141,6 +141,7 @@ public class AdapterBazyDanych {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Film film = new Film();
+                    film.id = rs.getInt("ID_Filmu");
                     film.tytul = rs.getString("Tytul");
                     film.rezyserNazwisko = rs.getString("Nazwisko");
                     film.rezyserImie = rs.getString("Imie");
@@ -156,13 +157,28 @@ public class AdapterBazyDanych {
         return movies;
     }
 
-    public boolean addReservation(Vector<Film> filmy, int lokalizacja, int id_uzytkownika, String data_rozpoczecia, String data_oczekiwanego_zakonczenia){
+    public boolean addReservation(Vector<Film> filmy, String lokalizacja, String id_uzytkownika, String data_rozpoczecia, String data_oczekiwanego_zakonczenia){
+        String query = "SELECT COUNT(*) as count FROM Uzytkownicy WHERE ID_uzytkownika = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, id_uzytkownika);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    if (rs.getInt("count") == 0) {
+                        System.out.println("User not found");
+                        return false;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching user: " + e.getMessage());
+            return false;
+        }
         for(Film film : filmy){
             String procedureCall = "CALL DodajRezerwacje(?, ?, ?, ?, ?);";
             try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
-                stmt.setInt(1, film.id);
-                stmt.setInt(2, lokalizacja);
-                stmt.setInt(3, id_uzytkownika);
+                stmt.setString(1, id_uzytkownika);
+                stmt.setString(2, lokalizacja);
+                stmt.setInt(3, film.id);
                 stmt.setString(4, data_rozpoczecia);
                 stmt.setString(5, data_oczekiwanego_zakonczenia);
                 stmt.execute();

@@ -98,7 +98,7 @@ public class MovieReservationController
         }
 
         System.out.println(Integer.parseInt(SharedState.username));
-        if (AdapterBazyDanych.getInstance().addReservation(filmywzamowieniu, selectedLocation.getId(),Integer.parseInt( SharedState.username), startdate.getValue().toString(), enddate.getValue().toString())){
+        if (AdapterBazyDanych.getInstance().addReservation(filmywzamowieniu, String.valueOf(selectedLocation.getId()), SharedState.username, startdate.getValue().toString(), enddate.getValue().toString())){
             SimpleDialog simpleDialog = new SimpleDialog("Rezerwacja zakończona sukcesem");
             filmywzamowieniu.clear();
             ObservableList<Film> filmywzamowieniuobs = javafx.collections.FXCollections.observableArrayList(filmywzamowieniu);
