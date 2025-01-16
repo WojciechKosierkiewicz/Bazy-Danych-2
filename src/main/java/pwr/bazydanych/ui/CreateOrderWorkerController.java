@@ -52,7 +52,6 @@ public class CreateOrderWorkerController
     }
     @javafx.fxml.FXML
     public void rent_clicked() {
-
     }
 
     @javafx.fxml.FXML
