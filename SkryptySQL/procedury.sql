@@ -114,17 +114,16 @@ END //
 
 DELIMITER ;
 DELIMITER //
-
+DROP PROCEDURE IF EXISTS DodajWypozyczenie;
 CREATE PROCEDURE DodajWypozyczenie(
     IN ID_uzytkownika_var INT,
     IN ID_lokacji_var INT,
-    IN data_rozpoczecia_var DATE,
     IN data_przewidywana_zakonczenia_var DATE
 )
 BEGIN
     -- Dodanie wypożyczenia
     INSERT INTO Zamowienia (ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, ID_lokacji)
-    VALUES (ID_uzytkownika, sysdate(), data_przewidywana_zakonczenia_var, ID_lokacji_var);
+    VALUES (ID_uzytkownika_Var, sysdate(), data_przewidywana_zakonczenia_var, ID_lokacji_var);
 END //
 
 DELIMITER ;
