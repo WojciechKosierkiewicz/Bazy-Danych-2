@@ -196,42 +196,68 @@ END //
 
 DELIMITER ;
 DELIMITER //
+DROP PROCEDURE IF EXISTS ZakonczWypozyczenie;
 CREATE PROCEDURE ZakonczWypozyczenie(
     IN ID_wypozyczenia_var INT,
     OUT Kara_out FLOAT
 )
 BEGIN
-    -- Pobranie danych wypożyczenia
+    DECLARE done INT DEFAULT 0;
     DECLARE ID_filmu_var INT;
     DECLARE ID_lokacji_var INT;
     DECLARE Cena_dzienna_var FLOAT;
     DECLARE Data_zakonczenia_var DATE;
     DECLARE roznica_dat_var INT;
+    DECLARE total_kara FLOAT DEFAULT 0;
 
-    SELECT Elementy_zamowien.ID_Filmu, Lokacje.ID_Lokacji, Elementy_zamowien.cena_czastkowa, Zamowienia.data_oczekiwanego_zakonczenia
-    INTO ID_filmu_var, ID_lokacji_var, Cena_dzienna_var, Data_zakonczenia_var
-    FROM Zamowienia
-    JOIN Elementy_zamowien ON Zamowienia.ID_zamowienia = Elementy_zamowien.ID_zamowienia
-    JOIN Lokacje ON Zamowienia.ID_Lokacji = Lokacje.ID_Lokacji
-    WHERE Zamowienia.ID_zamowienia = ID_wypozyczenia_var;
+    -- Cursor for iterating through movies in the order
+    DECLARE cur CURSOR FOR
+        SELECT
+            Elementy_zamowien.ID_Filmu,
+            Lokacje.ID_Lokacji,
+            Elementy_zamowien.cena_czastkowa,
+            Zamowienia.data_oczekiwanego_zakonczenia
+        FROM Zamowienia
+                 JOIN Elementy_zamowien ON Zamowienia.ID_zamowienia = Elementy_zamowien.ID_zamowienia
+                 JOIN Lokacje ON Zamowienia.ID_Lokacji = Lokacje.ID_Lokacji
+        WHERE Zamowienia.ID_zamowienia = ID_wypozyczenia_var;
 
-    -- Aktualizacja daty zwrotu
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    -- Update the actual end date for the order
     UPDATE Zamowienia
-    SET Data_faktycznego_zakonczenia = sysdate()
+    SET Data_faktycznego_zakonczenia = SYSDATE()
     WHERE ID_zamowienia = ID_wypozyczenia_var;
 
-    -- Zwiększenie liczby kopii filmu
-    UPDATE DostepnoscFilmu
-    SET Ilosc = Ilosc + 1
-    WHERE ID_Filmu = ID_filmu_var AND ID_Lokacji = ID_lokacji_var;
+    -- Open the cursor
+    OPEN cur;
 
-    SELECT DATEDIFF(Data_zakonczenia_var, sysdate()) INTO roznica_dat_var;
-    IF roznica_dat_var < 0 THEN
-        SET Kara_out = ABS(roznica_dat_var) * Cena_dzienna_var *2;
-    ELSE
-        SET Kara_out = 0;
-    END IF;
-END //
+    read_loop: LOOP
+        FETCH cur INTO ID_filmu_var, ID_lokacji_var, Cena_dzienna_var, Data_zakonczenia_var;
+
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        -- Update the number of available copies for the movie
+        UPDATE DostepnoscFilmu
+        SET Ilosc = Ilosc + 1
+        WHERE ID_Filmu = ID_filmu_var AND ID_Lokacji = ID_lokacji_var;
+
+        -- Calculate the penalty for the movie
+        SET roznica_dat_var = DATEDIFF(SYSDATE(), Data_zakonczenia_var);
+
+        IF roznica_dat_var > 0 THEN
+            SET total_kara = total_kara + (roznica_dat_var * Cena_dzienna_var * 2);
+        END IF;
+    END LOOP;
+
+    CLOSE cur;
+
+    -- Set the total penalty to the OUT parameter
+    SET Kara_out = total_kara;
+END;
+
 
 DELIMITER ;
 DELIMITER //

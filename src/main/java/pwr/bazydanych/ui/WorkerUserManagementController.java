@@ -141,7 +141,7 @@ public class WorkerUserManagementController {
             SimpleDialog err = new SimpleDialog("Wybierz zamowienie");
             return;
         }
-        Double kara = (double) -1;
+        Double kara = -1.0;
         if (AdapterBazyDanych.getInstance().returnOrder(selectedZamowienie.ID_Zamowienia,kara)) {
             if(kara==0){
                 SimpleDialog err = new SimpleDialog("Filmy zwrócone");

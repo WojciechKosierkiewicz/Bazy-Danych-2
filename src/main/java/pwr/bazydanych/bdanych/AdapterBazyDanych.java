@@ -638,17 +638,29 @@ public class AdapterBazyDanych {
     }
 
     public boolean rejestruj(String imie, String nazwisko, String nrdowodu, String id_user) {
-        String procedureCall = "CALL DodajUzytkownika(?, ?, ?, ?);";
-        String id = null;
-        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
-            stmt.setString(1, imie);
-            stmt.setString(2, nazwisko);
-            stmt.setString(3, nrdowodu);
-            stmt.execute();
-            id = stmt.getString(4);
-        } catch (SQLException e) {
-            System.err.println("Błąd procedury: " + e.getMessage());
+        if(imie == null || nazwisko == null || nrdowodu == null || id_user == null){
             return false;
+        }
+
+        if(imie.matches(".*\\d.*") || nazwisko.matches(".*\\d.*")){
+            throw new IllegalArgumentException("Imie i nazwisko nie mogą zawierać cyfr");
+        }else if(nrdowodu.length() != 9){
+            throw new IllegalArgumentException("Numer dowodu musi mieć 9 znaków");
+        }else if(imie.length() < 3 || nazwisko.length() < 3){
+            throw new IllegalArgumentException("Imie i nazwisko musi mieć co najmniej 3 znaki");
+        }else {
+            String procedureCall = "CALL DodajUzytkownika(?, ?, ?, ?);";
+            String id = null;
+            try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+                stmt.setString(1, imie);
+                stmt.setString(2, nazwisko);
+                stmt.setString(3, nrdowodu);
+                stmt.execute();
+                id = stmt.getString(4);
+            } catch (SQLException e) {
+                System.err.println("Błąd procedury: " + e.getMessage());
+                return false;
+            }
         }
         return true;
     }
