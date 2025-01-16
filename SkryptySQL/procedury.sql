@@ -117,13 +117,46 @@ DROP PROCEDURE IF EXISTS DodajWypozyczenie;
 CREATE PROCEDURE DodajWypozyczenie(
     IN ID_uzytkownika_var INT,
     IN ID_lokacji_var INT,
-    IN data_przewidywana_zakonczenia_var DATE
+    IN data_przewidywana_zakonczenia_var DATE,
+    OUT ID_zamowienia INT
 )
 BEGIN
-    -- Dodanie wypożyczenia
-    INSERT INTO Zamowienia (ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, ID_lokacji)
-    VALUES (ID_uzytkownika_Var, sysdate(), data_przewidywana_zakonczenia_var, ID_lokacji_var);
-END //
+    -- Validate input parameters
+    IF ID_uzytkownika_var IS NULL OR ID_uzytkownika_var <= 0 THEN
+        SIGNAL SQLSTATE '45001'
+            SET MESSAGE_TEXT = 'Invalid user ID provided.', MYSQL_ERRNO = 1001;
+    END IF;
+
+    IF ID_lokacji_var IS NULL OR ID_lokacji_var <= 0 THEN
+        SIGNAL SQLSTATE '45002'
+            SET MESSAGE_TEXT = 'Invalid location ID provided.', MYSQL_ERRNO = 1002;
+    END IF;
+
+    IF data_przewidywana_zakonczenia_var IS NULL OR data_przewidywana_zakonczenia_var < CURDATE() THEN
+        SIGNAL SQLSTATE '45003'
+            SET MESSAGE_TEXT = 'Invalid end date provided. Must be today or in the future.', MYSQL_ERRNO = 1003;
+    END IF;
+
+    -- Try inserting the order
+    BEGIN
+        DECLARE EXIT HANDLER FOR SQLEXCEPTION
+            BEGIN
+                -- Signal a general SQL exception
+                SIGNAL SQLSTATE '45004'
+                    SET MESSAGE_TEXT = 'An error occurred while inserting the order.', MYSQL_ERRNO = 1004;
+            END;
+
+        -- Start a transaction
+        START TRANSACTION;
+
+        -- Insert the order
+        INSERT INTO Zamowienia (ID_uzytkownika, data_rozpoczecia, data_oczekiwanego_zakonczenia, ID_lokacji)
+        VALUES (ID_uzytkownika_var, SYSDATE(), data_przewidywana_zakonczenia_var, ID_lokacji_var);
+
+        -- Get the ID of the inserted order
+        SELECT LAST_INSERT_ID() INTO ID_zamowienia;
+    END;
+END;
 
 DELIMITER ;
 DELIMITER //

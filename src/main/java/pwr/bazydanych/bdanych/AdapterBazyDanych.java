@@ -486,28 +486,25 @@ public class AdapterBazyDanych {
         String deleteOrderQuery = "DELETE FROM Zamowienia WHERE ID_zamowienia = ?;";
         int orderId = -1;
         Vector<Integer> ReservationsToClose = new Vector<>();
-
+        System.out.println("Renting movies");
         try (Connection conn = DriverManager.getConnection(connectionURL, user, password)) {
             conn.setAutoCommit(false);
-
-            try (PreparedStatement createOrderStmt = conn.prepareStatement(createOrderProcedure, Statement.RETURN_GENERATED_KEYS)) {
+            System.out.println("Transaction started");
+            try (CallableStatement createOrderStmt = conn.prepareCall(createOrderProcedure)) {
                 createOrderStmt.setString(1, id_uzytkownika);
                 createOrderStmt.setInt(2, id_lokacji);
                 createOrderStmt.setString(3, data_oczekiwanego_zakonczenia);
-                createOrderStmt.executeUpdate();
-
-                try (ResultSet rs = createOrderStmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        orderId = rs.getInt(1);
-                    }
-                }
+                createOrderStmt.registerOutParameter(4, Types.INTEGER);
+                createOrderStmt.execute();
+                orderId = createOrderStmt.getInt(4);
 
                 if (orderId == -1) {
                     conn.rollback();
+                    System.out.println("Error creating order, rollback");
                     conn.setAutoCommit(true);
                     return false;
                 }
-
+                System.out.println("Order created: " + orderId);
                 boolean moviesAdded = true;
                 try(PreparedStatement stmt = conn.prepareStatement(usersReservationstToClose)){
                     for (Film film : films) {
@@ -516,22 +513,26 @@ public class AdapterBazyDanych {
                         try (ResultSet rs = stmt.executeQuery()) {
                             while (rs.next()) {
                                 ReservationsToClose.add(rs.getInt("ID_rezerwacji"));
+                                System.out.println("Reservation to close: " + rs.getInt("ID_rezerwacji"));
                             }
                         }
                     }
-                    for(Integer reservation : ReservationsToClose){
-                        try (CallableStatement closeReservationstmt = conn.prepareCall("CALL ZakonczRezerwacje(?)")) {
-                            closeReservationstmt.setInt(1, reservation);
-                            closeReservationstmt.execute();
-                        } catch (SQLException e) {
-                            System.err.println("Error closing reservation: " + e.getMessage());
-                            conn.rollback();
-                            conn.setAutoCommit(true);
-                            return false;
+                    if(!ReservationsToClose.isEmpty()){
+                        for(Integer reservation : ReservationsToClose){
+                            try (CallableStatement closeReservationstmt = conn.prepareCall("CALL ZakonczRezerwacje(?)")) {
+                                closeReservationstmt.setInt(1, reservation);
+                                closeReservationstmt.execute();
+                                System.out.println("Reservation closed: " + reservation);
+                            } catch (SQLException e) {
+                                System.out.println("Error closing reservation: " + e.getMessage());
+                                conn.rollback();
+                                conn.setAutoCommit(true);
+                                return false;
+                            }
                         }
                     }
                 } catch (SQLException e) {
-                    System.err.println("Error fetching reservations: " + e.getMessage());
+                    System.out.println("Error fetching reservations: " + e.getMessage());
                     conn.rollback();
                     conn.setAutoCommit(true);
                     return false;
@@ -543,8 +544,9 @@ public class AdapterBazyDanych {
                         addElementStmt.setInt(2, film.id);
                         addElementStmt.setInt(3, 1);
                         addElementStmt.execute();
+                        System.out.println("Movie added to order: " + film.tytul);
                     } catch (SQLException e) {
-                        System.err.println("Error adding movie to order: " + e.getMessage());
+                        System.out.println("Error adding movie to order: " + e.getMessage());
                         moviesAdded = false;
                         failedMovies.add(film);
                     }
@@ -560,16 +562,17 @@ public class AdapterBazyDanych {
                 }
 
                 conn.commit();
+                System.out.println("Transaction successful");
                 conn.setAutoCommit(true);
                 return true;
             } catch (SQLException e) {
                 conn.rollback();
-                System.err.println("Transaction failed: " + e.getMessage());
+                System.out.println("Transaction failed: " + e.getMessage());
                 conn.setAutoCommit(true);
                 return false;
             }
         } catch (SQLException e) {
-            System.err.println("Connection error: " + e.getMessage());
+            System.out.println("Connection error: " + e.getMessage());
             return false;
         }
     }
