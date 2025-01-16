@@ -112,6 +112,33 @@ public class AdapterBazyDanych {
         return wynajete;
     }
 
+    public Vector<Rezerwacja> getReservations(String user){
+        Vector<Rezerwacja> rezerwacje = new Vector<Rezerwacja>();
+        String query = "SELECT f.Tytul, f.Cena_dzienna, l.Nazwa, r.data_rozpoczecia, r.date_zakonczenia " +
+                "FROM Rezerwacje r " +
+                "JOIN Filmy f on r.ID_filmu = f.ID_filmu " +
+                "JOIN Lokacje l on r.ID_lokacji = l.ID_lokacji " +
+                "WHERE r.ID_uzytkownika = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, user);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Rezerwacja rezerwacja = new Rezerwacja();
+                    rezerwacja.tytul = rs.getString("Tytul");
+                    rezerwacja.cena = rs.getDouble("Cena_dzienna");
+                    rezerwacja.nazwaLokacji = rs.getString("Nazwa");
+                    rezerwacja.data_rozpoczecia = rs.getString("data_rozpoczecia");
+                    rezerwacja.data_zakonczenia = rs.getString("date_zakonczenia");
+                    rezerwacje.add(rezerwacja);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching reservations: " + e.getMessage());
+        }
+        return rezerwacje;
+    }
+
+
     public Vector<Film> getMoviesInLocation(int id_lokacji, String tytul, String rezyser){
         Vector<Film> movies = new Vector<Film>();
         StringBuilder queryBuilder = new StringBuilder("SELECT f.ID_filmu, f.Tytul, r.Imie, r.Nazwisko, f.Gatunek, d.Ilosc, f.Cena_dzienna FROM Filmy f " +
