@@ -133,4 +133,9 @@ public class MovieReservationController
             SimpleDialog simpleDialog = new SimpleDialog("Nie wybrano filmu");
         }
     }
+
+    @javafx.fxml.FXML
+    public void goback() {
+        util.switch_scene("user-view.fxml");
+    }
 }

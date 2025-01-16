@@ -21,5 +21,6 @@
                <TableColumn fx:id="cenaColumn" text="Cena" />
            </columns>
        </TableView>
+      <Button layoutX="14.0" layoutY="72.0" mnemonicParsing="false" onMouseClicked="#mojerezerwacjeclicked" text="Moje rezerwacje" />
    </children>
 </AnchorPane>

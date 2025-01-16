@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="457.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.UsersReservations">
+   <children>
+      <TableView fx:id="tabela" layoutX="14.0" layoutY="49.0" prefHeight="394.0" prefWidth="762.0">
+        <columns>
+            <TableColumn fx:id="datarozpoczeciacol" prefWidth="169.0" text="Data Rozpoczecia" />
+            <TableColumn fx:id="datazakonczeniacol" prefWidth="151.0" text="Data Zakonczenia" />
+            <TableColumn fx:id="idcol" prefWidth="102.0" text="ID" />
+            <TableColumn fx:id="tytulcol" prefWidth="161.0" text="Tytuł filmu" />
+            <TableColumn fx:id="lokcol" prefWidth="117.0" text="Nazwa lokacji" />
+            <TableColumn fx:id="cenacol" prefWidth="61.0" text="cena" />
+        </columns>
+      </TableView>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#backpressed" text="Wróć" />
+      <Button layoutX="69.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#cancelreservation" text="Anuluj rezerwacje" />
+   </children>
+</AnchorPane>

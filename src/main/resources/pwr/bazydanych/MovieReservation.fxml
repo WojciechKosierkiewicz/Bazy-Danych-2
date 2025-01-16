@@ -28,6 +28,6 @@
       </TableView>
       <Label layoutX="599.0" layoutY="93.0" text="Aktualne zamowienie" />
       <Button layoutX="101.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#addtoorder" text="Dodaj do zamówienia" />
-      <Button layoutX="885.0" layoutY="14.0" mnemonicParsing="false" text="Wroc" />
+      <Button layoutX="885.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goback" text="Wroc" />
    </children>
 </AnchorPane>

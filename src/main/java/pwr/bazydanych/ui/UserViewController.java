@@ -66,4 +66,9 @@ public class UserViewController {
     public void reservermovie() {
         util.switch_scene("MovieReservation.fxml");
     }
+
+    @FXML
+    public void mojerezerwacjeclicked() {
+        util.switch_scene("UsersReservations.fxml");
+    }
 }

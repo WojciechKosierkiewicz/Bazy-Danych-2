@@ -8,4 +8,27 @@ public class Rezerwacja {
     public String tytul;
     public String nazwaLokacji;
 
+    public double getCena() {
+        return cena;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTytul() {
+        return tytul;
+    }
+
+    public String getData_rozpoczecia() {
+        return data_rozpoczecia;
+    }
+
+    public String getData_zakonczenia() {
+        return data_zakonczenia;
+    }
+
+    public String getNazwaLokacji() {
+        return nazwaLokacji;
+    }
 }
