@@ -48,12 +48,18 @@ public class RejestracjaController
             return;
         }
         String userid = "";
-        if (AdapterBazyDanych.getInstance().rejestruj(imietxt.getText(), nazwiskotxt.getText(), idnumber.getText(),userid)){
-            SimpleDialog simpleDialog = new SimpleDialog("Zarejestrowano ! twoj login to : \"" + userid + "\"");
-            util.switch_scene("hello-view.fxml");
+        try{
+            if (AdapterBazyDanych.getInstance().rejestruj(imietxt.getText(), nazwiskotxt.getText(), idnumber.getText(),userid)){
+                SimpleDialog simpleDialog = new SimpleDialog("Zarejestrowano ! twoj login to : \"" + userid + "\"");
+                util.switch_scene("hello-view.fxml");
+            }
+            else {
+                SimpleDialog simpleDialog = new SimpleDialog("Nie mozna zarejestrowac");
+            }
         }
-        else {
-            SimpleDialog simpleDialog = new SimpleDialog("Nie mozna zarejestrowac");
+        catch (Exception e){
+            SimpleDialog simpleDialog = new SimpleDialog(e.getMessage());
         }
+
     }
 }
