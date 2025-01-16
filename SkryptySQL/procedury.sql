@@ -104,7 +104,8 @@ DELIMITER //
 CREATE PROCEDURE DodajUzytkownika(
     IN Imie_var VARCHAR(100),
     IN Nazwisko_var VARCHAR(100),
-    IN Nr_dowodu_var VARCHAR(9)
+    IN Nr_dowodu_var VARCHAR(9),
+    OUT ID_uzytkownika INT
 )
 BEGIN
     INSERT INTO Uzytkownicy (Imie, Nazwisko, nrdowodu, zatwierdzony)
