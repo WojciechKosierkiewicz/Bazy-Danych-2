@@ -79,8 +79,7 @@ END //
 
 DELIMITER ;
 DELIMITER //
-DROP PROCEDURE IF EXISTS ZakończRezerwacje;
-CREATE PROCEDURE ZakończRezerwacje(
+CREATE PROCEDURE ZakonczRezerwacje(
     IN ID_rezerwacji_var INT
 )
 BEGIN

@@ -114,7 +114,7 @@ public class AdapterBazyDanych {
 
     public Vector<Rezerwacja> getReservations(String user){
         Vector<Rezerwacja> rezerwacje = new Vector<Rezerwacja>();
-        String query = "SELECT f.Tytul, f.Cena_dzienna, l.Nazwa, r.data_rozpoczecia, r.date_zakonczenia " +
+        String query = "SELECT r.ID_rezerwacji, f.Tytul, f.Cena_dzienna, l.Nazwa, r.data_rozpoczecia, r.date_zakonczenia " +
                 "FROM Rezerwacje r " +
                 "JOIN Filmy f on r.ID_filmu = f.ID_filmu " +
                 "JOIN Lokacje l on r.ID_lokacji = l.ID_lokacji " +
@@ -124,6 +124,7 @@ public class AdapterBazyDanych {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Rezerwacja rezerwacja = new Rezerwacja();
+                    rezerwacja.id = rs.getInt("ID_rezerwacji");
                     rezerwacja.tytul = rs.getString("Tytul");
                     rezerwacja.cena = rs.getDouble("Cena_dzienna");
                     rezerwacja.nazwaLokacji = rs.getString("Nazwa");
