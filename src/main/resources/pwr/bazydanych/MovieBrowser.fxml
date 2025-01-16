@@ -7,11 +7,11 @@
 
     <top>
         <HBox alignment="CENTER" prefHeight="28.0" prefWidth="652.0" spacing="10">
-         <Button mnemonicParsing="false" onMouseClicked="#goback" text="Wróć" />
             <TextField fx:id="tytulField" promptText="Tytuł" />
             <TextField fx:id="rezyserField" promptText="Reżyser" />
          <ChoiceBox fx:id="gatunek" prefWidth="150.0" />
             <Button onAction="#onAddButtonClick" text="Szukaj" />
+         <Button mnemonicParsing="false" onMouseClicked="#goback" text="Wróć" />
         </HBox>
     </top>
 
