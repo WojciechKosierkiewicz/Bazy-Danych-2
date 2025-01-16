@@ -221,6 +221,18 @@ public class AdapterBazyDanych {
         return true;
     }
 
+    public boolean invalidateUser(String id_user) {
+        String procedureCall = "CALL DezatwierdzUzytkownika(?);";
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setString(1, id_user);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Błąd procedury: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
     public boolean addMovie(String title, String genre, Double CenaDziennaFilm, int director_id) {
         String procedureCall = "CALL DodajFilm(?, ?, ?, ?);";
 
