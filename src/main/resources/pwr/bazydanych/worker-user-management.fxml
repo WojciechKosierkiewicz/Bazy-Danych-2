@@ -28,5 +28,6 @@
       <Label fx:id="imie" layoutX="15.0" layoutY="66.0" text="Imie" />
       <Label fx:id="Nazwisko" layoutX="13.0" layoutY="83.0" text="Nazwisko" />
       <Label fx:id="nrDowodu" layoutX="13.0" layoutY="100.0" text="nr Dowodu" />
+      <Button fx:id="createorder" disable="true" layoutX="17.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#create_order" text="Stwórz zamówienie" />
     </children>
 </AnchorPane>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="402.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.CreateOrderWorkerController">
+   <children>
+       <ChoiceBox fx:id="lokacja" layoutX="14.0" layoutY="14.0" prefWidth="150.0" />
+      <TableView fx:id="tabeladostepnosci" layoutX="14.0" layoutY="47.0" prefHeight="338.0" prefWidth="295.0">
+        <columns>
+            <TableColumn fx:id="tytulColumndostepnosc" prefWidth="177.0" text="Tytul" />
+            <TableColumn fx:id="cenaColumndostepnosc" prefWidth="117.0" text="Cena" />
+        </columns>
+      </TableView>
+      <TableView fx:id="Tabelazbieracz" layoutX="328.0" layoutY="47.0" prefHeight="338.0" prefWidth="253.0">
+        <columns>
+            <TableColumn fx:id="tytulColumnwybrane" prefWidth="150.0" text="Tytul" />
+            <TableColumn fx:id="cenaColumnwybrane" prefWidth="100.0" text="Cena" />
+        </columns>
+      </TableView>
+      <Button layoutX="539.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#wroc_clicked" text="wróć" />
+      <Button layoutX="463.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#rent_clicked" text="Wynajmij" />
+      <DatePicker fx:id="datazakonczeniaui" layoutX="175.0" layoutY="14.0" promptText="Data Zakonczenia" />
+      <Button layoutX="355.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#dodaj_clicked" text="Dodaj" />
+      <Button layoutX="412.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#usun_clicked" text="Usun" />
+   </children>
+</AnchorPane>
