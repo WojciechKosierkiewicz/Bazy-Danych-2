@@ -58,7 +58,7 @@ public class RejestracjaController
             }
         }
         catch (Exception e){
-            SimpleDialog simpleDialog = new SimpleDialog("Nie mozna zarejestrowac");
+            SimpleDialog simpleDialog = new SimpleDialog(e.getMessage());
         }
 
     }
