@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import pwr.bazydanych.SharedState;
 import pwr.bazydanych.bdanych.*;
 
 import java.util.Vector;
@@ -42,6 +43,8 @@ public class WorkerUserManagementController {
     private Label Nazwisko;
     @FXML
     private Label nrDowodu;
+    @FXML
+    private Button createorder;
 
 
     @FXML
@@ -78,6 +81,7 @@ public class WorkerUserManagementController {
         else {
             UserVerificated.setSelected(false);
         }
+        createorder.setDisable(false);
 
     }
 
@@ -95,6 +99,7 @@ public class WorkerUserManagementController {
         zamowienia.setVisible(false);
         filmy.setVisible(false);
         UserVerificated.setVisible(false);
+        createorder.setDisable(true);
     }
 
 
@@ -107,6 +112,8 @@ public class WorkerUserManagementController {
             AfterUserNotFoundOperations();
             return;
         }
+        SharedState.user = user;
+        SharedState.username = user.id;
         AfterUserFoundOperations();
     }
 
@@ -139,5 +146,10 @@ public class WorkerUserManagementController {
         ObservableList<WynajetyFilm> allItems = zamowienia.getItems();
         allItems.remove(selectedZamowienie);
         zamowienia.setItems(allItems);
+    }
+
+    @FXML
+    public void create_order() {
+        util.switch_scene("CreateOrderWorker.fxml");
     }
 }
