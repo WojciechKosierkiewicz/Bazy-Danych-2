@@ -156,13 +156,21 @@ public class AdapterBazyDanych {
         return movies;
     }
 
-    public boolean returnMovie() {
-        // TODO
-        return true;
-    }
-
-    public boolean rentMovie(String id_user, String title) {
-        // TODO
+    public boolean addReservation(Vector<Film> filmy, int lokalizacja, int id_uzytkownika, String data_rozpoczecia, String data_oczekiwanego_zakonczenia){
+        for(Film film : filmy){
+            String procedureCall = "CALL DodajRezerwacje(?, ?, ?, ?, ?);";
+            try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+                stmt.setInt(1, film.id);
+                stmt.setInt(2, lokalizacja);
+                stmt.setInt(3, id_uzytkownika);
+                stmt.setString(4, data_rozpoczecia);
+                stmt.setString(5, data_oczekiwanego_zakonczenia);
+                stmt.execute();
+            } catch (SQLException e) {
+                System.err.println("Błąd procedury: " + e.getMessage());
+                return false;
+            }
+        }
         return true;
     }
 
