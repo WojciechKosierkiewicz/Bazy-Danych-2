@@ -5,10 +5,10 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.bazydanych.ui.RejestracjaController">
    <children>
-      <TextField layoutX="226.0" layoutY="68.0" promptText="Imię" />
-      <TextField layoutX="226.0" layoutY="103.0" promptText="Nazwisko" />
-      <TextField layoutX="226.0" layoutY="137.0" promptText="NrDowodu" />
-      <Button layoutX="226.0" layoutY="175.0" mnemonicParsing="false" text="Rejestruj" />
+      <TextField fx:id="imietxt" layoutX="226.0" layoutY="68.0" promptText="Imię" />
+      <TextField fx:id="nazwiskotxt" layoutX="226.0" layoutY="103.0" promptText="Nazwisko" />
+      <TextField fx:id="idnumber" layoutX="226.0" layoutY="137.0" promptText="NrDowodu" />
+      <Button layoutX="226.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#rejestrujclicked" text="Rejestruj" />
       <Button layoutX="323.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#back" text="Wróć" />
    </children>
 </AnchorPane>
