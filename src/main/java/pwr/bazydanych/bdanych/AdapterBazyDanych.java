@@ -63,6 +63,9 @@ public class AdapterBazyDanych {
     }
 
     public boolean changePrice(int id_filmu, double cena){
+        if (cena < 0) {
+            throw new IllegalArgumentException("Cena nie może być ujemna");
+        }
         String procedureCall = "CALL AktualizujCene(?, ?);";
         try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
             stmt.setInt(1, id_filmu);
@@ -76,6 +79,9 @@ public class AdapterBazyDanych {
     }
 
     public boolean changeMovieAvailability(int id_filmu, int id_lokacji, int ilosc){
+        if (ilosc < 0) {
+            throw new IllegalArgumentException("Ilość nie może być ujemna");
+        }
         String procedureCall = "CALL AktualizujDostepnosc(?, ?, ?);";
         try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
             stmt.setInt(1, id_filmu);
