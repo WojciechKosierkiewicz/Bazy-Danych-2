@@ -156,15 +156,32 @@ public class AdapterBazyDanych {
         return movies;
     }
 
-    public boolean addReservation(Vector<Film> filmy, int lokalizacja, int id_uzytkownika, String data_rozpoczecia, String data_oczekiwanego_zakonczenia){
+    public boolean addReservation(Vector<Film> filmy, String lokalizacja, String id_uzytkownika, String data_rozpoczecia, String data_oczekiwanego_zakonczenia){
+        String query = "SELECT COUNT(*) as count FROM Uzytkownicy WHERE ID_uzytkownika = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, id_uzytkownika);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    if (rs.getInt("count") == 0) {
+                        System.out.println("User not found");
+                        return false;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching user: " + e.getMessage());
+            return false;
+        }
         for(Film film : filmy){
             String procedureCall = "CALL DodajRezerwacje(?, ?, ?, ?, ?);";
             try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
-                stmt.setInt(1, film.id);
-                stmt.setInt(2, lokalizacja);
-                stmt.setInt(3, id_uzytkownika);
+                stmt.setString(1, id_uzytkownika);
+                stmt.setString(2, lokalizacja);
+                stmt.setInt(3, film.id);
                 stmt.setString(4, data_rozpoczecia);
                 stmt.setString(5, data_oczekiwanego_zakonczenia);
+                System.out.println("Zapytanie SQL: " + procedureCall);
+                System.out.println("ID_filmu: " + film.id + " ID_lokacji: " + lokalizacja + " ID_uzytkownika: " + id_uzytkownika + " data_rozpoczecia: " + data_rozpoczecia + " data_oczekiwanego_zakonczenia: " + data_oczekiwanego_zakonczenia);
                 stmt.execute();
             } catch (SQLException e) {
                 System.err.println("Błąd procedury: " + e.getMessage());
