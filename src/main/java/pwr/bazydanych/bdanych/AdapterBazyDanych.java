@@ -66,6 +66,7 @@ public class AdapterBazyDanych {
         if (cena < 0) {
             throw new IllegalArgumentException("Cena nie może być ujemna");
         }
+
         String procedureCall = "CALL AktualizujCene(?, ?);";
         try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
             stmt.setInt(1, id_filmu);
@@ -95,6 +96,17 @@ public class AdapterBazyDanych {
         return true;
     }
 
+    public boolean deleteMovie(int id_filmu){
+        String procedureCall = "CALL UsunFilm(?);";
+        try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
+            stmt.setInt(1, id_filmu);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Błąd procedury: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
 
     public Vector<Zamowienie> getZamowienia(String id_user){
         Vector<Zamowienie> zamowienia = new Vector<Zamowienie>();
