@@ -637,9 +637,10 @@ public class AdapterBazyDanych {
         return movies;
     }
 
-    public boolean rejestruj(String imie, String nazwisko, String nrdowodu, String id_user) {
-        if(imie == null || nazwisko == null || nrdowodu == null || id_user == null){
-            return false;
+    public String rejestruj(String imie, String nazwisko, String nrdowodu) {
+        String id_user = null;
+        if(imie == null || nazwisko == null || nrdowodu == null ){
+            return "false";
         }
 
         if(imie.matches(".*\\d.*") || nazwisko.matches(".*\\d.*")){
@@ -659,10 +660,10 @@ public class AdapterBazyDanych {
                 System.out.println(id_user);
             } catch (SQLException e) {
                 System.err.println("Błąd procedury: " + e.getMessage());
-                return false;
+                return "false";
             }
         }
-        return true;
+        return id_user;
     }
 
     public boolean returnOrder(int id_zamowienia, Double Kara){
