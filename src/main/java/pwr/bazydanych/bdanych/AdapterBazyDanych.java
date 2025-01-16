@@ -653,11 +653,12 @@ public class AdapterBazyDanych {
         return true;
     }
 
-    public boolean returnOrder(int id_zamowienia){
-        String procedureCall = "CALL ZakonczWypozyczenie(?);";
+    public boolean returnOrder(int id_zamowienia, Double Kara){
+        String procedureCall = "CALL ZakonczWypozyczenie(?, ?);";
         try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
             stmt.setInt(1, id_zamowienia);
             stmt.execute();
+            Kara = stmt.getDouble(2);
         } catch (SQLException e) {
             System.err.println("Błąd procedury: " + e.getMessage());
             return false;
