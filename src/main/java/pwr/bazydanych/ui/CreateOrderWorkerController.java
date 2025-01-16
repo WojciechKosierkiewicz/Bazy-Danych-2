@@ -47,7 +47,7 @@ public class CreateOrderWorkerController
     }
 
     public void onChoiceBoxSelected(Lokacja newValue) {
-        Vector<Film> filmy = pwr.bazydanych.bdanych.AdapterBazyDanych.getInstance().getAvailableMovies(null,null,newValue.getId());
+        Vector<Film> filmy = pwr.bazydanych.bdanych.AdapterBazyDanych.getInstance().getAvailableMovies(newValue.getId());
         ObservableList<Film> filmyobs = javafx.collections.FXCollections.observableArrayList(filmy);
         tabeladostepnosci.getItems().clear();
         tabeladostepnosci.getItems().addAll(filmyobs);
