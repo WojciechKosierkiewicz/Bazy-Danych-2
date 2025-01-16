@@ -261,51 +261,6 @@ public class AdapterBazyDanych {
         return true;
     }
 
-    public Vector<Film> getMoviesMatching (String expression){
-        Vector<Film> movies = new Vector<>();
-        String query = "SELECT f.Tytul, r.Imie, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser WHERE f.Tytul LIKE ?";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + expression + "%");
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Film film = new Film();
-                    Rezyser rezyser = new Rezyser();
-                    film.tytul = rs.getString("Tytul");
-                    film.rezyserNazwisko = rs.getString("Nazwisko");
-                    film.rezyserImie = rs.getString("Imie");
-                    film.gatunek = rs.getString("Gatunek");
-                    movies.add(film);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error fetching movies: " + e.getMessage());
-        }
-
-        return movies;
-    }
-
-    public Vector<Film> getMoviesByDirector (String director){
-        Vector<Film> movies = new Vector<>();
-        String query = "SELECT f.Tytul, r.Nazwisko, f.Gatunek FROM Filmy f JOIN Rezyser r on f.ID_Rezyser = r.ID_Rezyser WHERE r.Nazwisko = ? OR r.Imie = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, director);
-            stmt.setString(2, director);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Film film = new Film();
-                    film.tytul = rs.getString("Tytul");
-                    film.rezyserNazwisko = rs.getString("Nazwisko");
-                    film.rezyserImie = rs.getString("Imie");
-                    film.gatunek = rs.getString("Gatunek");
-                    movies.add(film);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error fetching movies: " + e.getMessage());
-        }
-        return null;
-    }
 
     public Vector<Film> getMoviesByArg(String Director, String Title, String Genre){
         Vector<Film> movies = new Vector<>();
