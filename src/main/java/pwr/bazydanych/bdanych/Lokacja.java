@@ -1,10 +1,10 @@
 package pwr.bazydanych.bdanych;
 
 public class Lokacja {
-    int id;
-    String nazwa;
-    String adres;
-    String nr_telefonu;
+    public int id;
+    public String nazwa;
+    public String adres;
+    public String nr_telefonu;
 
     public int getId() {
         return id;

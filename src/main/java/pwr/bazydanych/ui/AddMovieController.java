@@ -56,7 +56,11 @@ public class AddMovieController
             SimpleDialog simpleDialog = new SimpleDialog("Wszystkie pola musza byc wypelnione");
             return;
         }
-        AdapterBazyDanych.getInstance().addMovie(tytul, gatunek, cenna, selectedRezyser.getId());
+        if (AdapterBazyDanych.getInstance().addMovie(tytul, gatunek, cenna, selectedRezyser.getId())) {
+            SimpleDialog simpleDialog = new SimpleDialog("Film dodany");
+        } else {
+            SimpleDialog simpleDialog = new SimpleDialog("Nie udalo sie dodac filmu");
+        }
     }
 
     @javafx.fxml.FXML
