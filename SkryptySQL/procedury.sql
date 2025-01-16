@@ -100,7 +100,7 @@ END //
 
 DELIMITER ;
 DELIMITER //
-
+DROP PROCEDURE IF EXISTS DodajUzytkownika;
 CREATE PROCEDURE DodajUzytkownika(
     IN Imie_var VARCHAR(100),
     IN Nazwisko_var VARCHAR(100),
@@ -110,6 +110,7 @@ CREATE PROCEDURE DodajUzytkownika(
 BEGIN
     INSERT INTO Uzytkownicy (Imie, Nazwisko, nrdowodu, zatwierdzony)
     VALUES (Imie_var, Nazwisko_var, Nr_dowodu_var, FALSE);
+    SELECT LAST_INSERT_ID() INTO ID_uzytkownika;
 END //
 
 DELIMITER ;

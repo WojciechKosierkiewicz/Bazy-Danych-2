@@ -650,13 +650,13 @@ public class AdapterBazyDanych {
             throw new IllegalArgumentException("Imie i nazwisko musi mieć co najmniej 3 znaki");
         }else {
             String procedureCall = "CALL DodajUzytkownika(?, ?, ?, ?);";
-            String id = null;
             try (CallableStatement stmt = connection.prepareCall(procedureCall)) {
                 stmt.setString(1, imie);
                 stmt.setString(2, nazwisko);
                 stmt.setString(3, nrdowodu);
                 stmt.execute();
-                id = stmt.getString(4);
+                id_user = stmt.getString(4);
+                System.out.println(id_user);
             } catch (SQLException e) {
                 System.err.println("Błąd procedury: " + e.getMessage());
                 return false;
